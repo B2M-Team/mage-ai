@@ -8,7 +8,7 @@ import { UNIT } from '@oracle/styles/units/spacing';
 
 
 export const HeaderStyle = styled.div`
-  border-bottom: 1px solid #1B1C20;
+  border-bottom: 1px solid ${props => (props.theme.borders || dark.borders).medium};
   height: ${HEADER_HEIGHT}px;
 
   display: flex;
@@ -28,8 +28,6 @@ export const PanelStyle = styled.div`
 	height: 75vh;
 	min-height: 300px;
 	width: 75vw;
-	backgroundColor: #232429;
-	// overflow-y: auto;
 	border-radius: ${BORDER_RADIUS}px;
 
 	${props => `

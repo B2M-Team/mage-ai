@@ -22,7 +22,7 @@ const SVGStyle = styled.svg``;
 
 const PathStyle = styled.path<LogoProps>`
   ${props => !props.slash && !props.inverted && `
-    fill: ${(props.theme.logo || dark.logo).color};
+    fill: ${props.theme?.logo?.color ?? dark.logo.color};
   `}
 
   ${props => !props.slash && props.inverted && `

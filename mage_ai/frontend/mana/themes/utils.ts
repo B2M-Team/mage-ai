@@ -42,12 +42,13 @@ export function getTheme(opts?: { theme?: ThemeSettingsType; ctx?: any }): Theme
 
 export function getThemeSettings(ctx?: any): ThemeSettingsType {
   const settings = getThemeSettingsCache(ctx);
+  const withLightMode = { ...settings, mode: ModeEnum.LIGHT };
   return {
-    ...settings,
-    mode: settings.mode || ModeEnum.DARK,
+    ...withLightMode,
+    mode: ModeEnum.LIGHT,
     theme: getTheme({
       ctx,
-      theme: settings,
+      theme: withLightMode,
     }),
   };
 }
@@ -55,9 +56,10 @@ export function getThemeSettings(ctx?: any): ThemeSettingsType {
 export function setThemeSettings(
   themeSettings: ThemeSettingsType | ((prev: ThemeSettingsType) => ThemeSettingsType),
 ) {
-  const theme = JSON.stringify(
-    typeof themeSettings === 'function' ? themeSettings(getThemeSettings()) : themeSettings,
-  );
+  const resolved =
+    typeof themeSettings === 'function' ? themeSettings(getThemeSettings()) : themeSettings;
+  const normalized = { ...resolved, mode: ModeEnum.LIGHT };
+  const theme = JSON.stringify(normalized);
 
   // @ts-ignore
   Cookies.set(KEY, theme, { ...SHARED_OPTS, expires: 9999 });

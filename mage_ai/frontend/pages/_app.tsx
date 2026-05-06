@@ -39,7 +39,7 @@ import {
 import { SheetProvider } from '@context/Sheet/SheetProvider';
 import { ThemeType } from '@oracle/styles/themes/constants';
 import { addPageHistory } from '@storage/CommandCenter/utils';
-import { getCurrentTheme } from '@oracle/styles/themes/utils';
+import { getCurrentTheme, setCurrentTheme } from '@oracle/styles/themes/utils';
 import { gridTheme as gridThemeDefault, theme as stylesTheme } from '@styles/theme';
 import { isDemo } from '@utils/environment';
 import { queryFromUrl, queryString, redirectToUrl } from '@utils/url';
@@ -97,6 +97,14 @@ function MyApp(props: MyAppProps & AppProps) {
       }
     }
   }, [commandCenterEnabled, router]);
+
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.body.setAttribute('data-theme', 'light');
+    }
+    setCurrentTheme();
+  }, []);
 
   useEffect(() => {
     setTimeout(() => savePageHistory(), 3000);

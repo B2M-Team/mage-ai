@@ -34,9 +34,7 @@ class Combiner implements CombinerType {
     this.mode = mode || DEFAULT_MODE;
 
     if (ThemeTypeEnum.SYSTEM === type && typeof window !== 'undefined') {
-      this.mode = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? ModeEnum.DARK
-        : ModeEnum.LIGHT;
+      this.mode = ModeEnum.LIGHT;
     }
 
     this.theme = null;
