@@ -1,53 +1,36 @@
-import NextLink from 'next/link';
-import { ThemeContext } from 'styled-components';
-import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import AuthToken from '@api/utils/AuthToken';
 import Breadcrumbs, { BreadcrumbType as BreadcrumbTypeOrig } from '@components/Breadcrumbs';
 import Button from '@oracle/elements/Button';
-import Circle from '@oracle/elements/Circle';
 import ClickOutside from '@oracle/components/ClickOutside';
 import ClientOnly from '@hocs/ClientOnly';
 import Flex from '@oracle/components/Flex';
 import FlexContainer from '@oracle/components/FlexContainer';
-import FlyoutMenu, { FlyoutMenuItemType } from '@oracle/components/FlyoutMenu';
+import FlyoutMenu from '@oracle/components/FlyoutMenu';
 import GitActions from '@components/VersionControl/GitActions';
-import GradientLogoIcon from '@oracle/icons/GradientLogo';
 import KeyboardShortcutButton from '@oracle/elements/Button/KeyboardShortcutButton';
 import LaunchKeyboardShortcutText from '@components/CommandCenter/LaunchKeyboardShortcutText';
 import Loading, { LoadingStyleEnum } from '@oracle/components/Loading';
-import Link from '@oracle/elements/Link';
-import Mage8Bit from '@oracle/icons/custom/Mage8Bit';
 import PopupMenu from '@oracle/components/PopupMenu';
 import ProjectType, { FeatureUUIDEnum } from '@interfaces/ProjectType';
-import ServerTimeDropdown from '@components/ServerTimeDropdown';
 import Spacing from '@oracle/elements/Spacing';
 import Text from '@oracle/elements/Text';
 import api from '@api';
-import useCustomDesign from '@utils/models/customDesign/useCustomDesign';
 import useDelayFetch from '@api/utils/useDelayFetch';
 import useProject from '@utils/models/project/useProject';
-import { BLUE_TRANSPARENT, YELLOW } from '@oracle/styles/colors/main';
+import { YELLOW } from '@oracle/styles/colors/main';
 import { BranchAlt, MageProLetters, Planet, Slack, UFO } from '@oracle/icons';
-import {
-  ButtonInputStyle,
-  CUSTOM_LOGO_HEIGHT,
-  HeaderStyle,
-  LOGO_HEIGHT,
-  MediaStyle,
-} from './index.style';
+import { HeaderStyle } from './index.style';
 import { CommandCenterStateEnum } from '@interfaces/CommandCenterType';
 import { CustomEventUUID, CUSTOM_EVENT_NAME_COMMAND_CENTER_STATE_CHANGED } from '@utils/events/constants';
 import { LinkStyle } from '@components/PipelineDetail/FileHeaderMenu/index.style';
-import { MONO_FONT_FAMILY_BOLD } from '@oracle/styles/fonts/primary';
-import { REQUIRE_USER_AUTHENTICATION, getUser } from '@utils/session';
+import { REQUIRE_USER_AUTHENTICATION } from '@utils/session';
 import { PADDING_UNITS, UNIT } from '@oracle/styles/units/spacing';
 import { getSetSettings } from '@storage/CommandCenter/utils';
-import { isEmptyObject } from '@utils/hash';
 import { launchCommandCenter } from '@components/CommandCenter/utils';
 import { pauseEvent } from '@utils/events';
-import { redirectToUrl } from '@utils/url';
 import { storeLocalTimezoneSetting } from '@components/settings/workspace/utils';
 import { useModal } from '@context/Modal';
 import { useError } from '@context/Error';
@@ -80,20 +63,16 @@ function Header({
     uuid: 'shared/Header',
   });
 
-  const themeContext = useContext(ThemeContext);
   const router = useRouter();
-  const userFromLocalStorage = getUser(router?.basePath);
 
   const [commandCenterState, setCommandCenterState] = useState<CommandCenterStateEnum>(null);
   const [enableCommandCenterLoading, setEnableCommandCenterLoading] = useState<boolean>(false);
-  const [userMenuVisible, setUserMenuVisible] = useState<boolean>(false);
   const [highlightedMenuIndex, setHighlightedMenuIndex] = useState<number>(null);
   const [confirmationDialogueOpen, setConfirmationDialogueOpen] = useState<boolean>(false);
   const [confirmationAction, setConfirmationAction] = useState(null);
 
   const menuRef = useRef(null);
   const projectRef = useRef(null);
-  const refUserMenu = useRef(null);
 
   const loggedIn = AuthToken.isLoggedIn();
   const {
@@ -119,10 +98,6 @@ function Header({
   } = useMemo(() => dataGitBranch?.['git_branch'] || {}, [dataGitBranch]);
 
   const {
-    design,
-  } = useCustomDesign();
-
-  const {
     featureEnabled,
     featureUUIDs,
     isLoadingProject,
@@ -141,7 +116,6 @@ function Header({
     featureEnabled,
     featureUUIDs,
   ]);
-  const projectPlatformOverrideFeaturesEnabled = !isEmptyObject(project?.features_override);
   projectRef.current = project;
 
   const launchCommandCenterWrapper = useCallback(() => {
@@ -176,18 +150,6 @@ function Header({
     showError,
     updateProject,
   ]);
-
-  const logout = () => {
-    AuthToken.logout(() => {
-      api.sessions.updateAsyncServer(null, 1)
-        .then(() => {
-          redirectToUrl('/sign-in');
-        })
-        .catch(() => {
-          redirectToUrl('/');
-        });
-    }, router?.basePath);
-  };
 
   const breadcrumbProjects = [];
   if (rootProject) {
@@ -255,73 +217,6 @@ function Header({
 
   const { latest_version: latestVersion } = project || {};
 
-  const [customMediaSize, setCustomMediaSize] = useState<{
-    height?: number;
-    width?: number;
-  }>(null);
-
-  const logoLink = useMemo(() => {
-    let logoHeight = LOGO_HEIGHT;
-    let logoEl = <GradientLogoIcon height={LOGO_HEIGHT} />;
-
-    if (design?.components?.header?.media) {
-      const media = design?.components?.header?.media;
-      if (customMediaSize !== null) {
-        const ratio = (customMediaSize?.width || 1) / (customMediaSize?.height || 1);
-
-        logoHeight = CUSTOM_LOGO_HEIGHT;
-        logoEl = (
-          <MediaStyle
-            height={CUSTOM_LOGO_HEIGHT}
-            width={CUSTOM_LOGO_HEIGHT * ratio}
-            url={media?.url || media?.file_path}
-          />
-        );
-      }
-    }
-
-    return (
-      <NextLink
-        as="/"
-        href="/"
-        passHref
-      >
-        <Link
-          block
-          height={logoHeight}
-          noHoverUnderline
-          noOutline
-        >
-          {logoEl}
-        </Link>
-      </NextLink>
-    );
-  }, [
-    customMediaSize,
-    design,
-  ]);
-
-  const userDropdown: FlyoutMenuItemType[] = hideActions
-    ? []
-    : [
-      {
-        label: () => 'Settings',
-        linkProps: {
-          href: '/settings/workspace/preferences',
-        },
-        uuid: 'user_settings',
-      }
-    ];
-
-  if (REQUIRE_USER_AUTHENTICATION()) {
-    userDropdown.push(
-      {
-        label: () => 'Sign out',
-        onClick: () => logout(),
-        uuid: 'sign_out',
-      });
-  }
-
   const [showModal, hideModal] = useModal(() => (
     <GitActions
       branch={branch}
@@ -339,59 +234,6 @@ function Header({
 
     return branch;
   }, [branch]);
-
-  const hasAvatarEmoji = useMemo(() => {
-    if (!userFromLocalStorage || !userFromLocalStorage?.avatar) {
-      return false;
-    }
-
-    return !/[A-Za-z0-9]+/.exec(userFromLocalStorage?.avatar || '');
-  }, [userFromLocalStorage]);
-
-  const hasAvatarAndNotEmoji = useMemo(() => {
-    if (!userFromLocalStorage || !userFromLocalStorage?.avatar) {
-      return false;
-    }
-
-    return !!/[A-Za-z0-9]+/.exec(userFromLocalStorage?.avatar || '');
-  }, [userFromLocalStorage]);
-
-  const avatarMemo = useMemo(() => {
-    if (!userFromLocalStorage || !userFromLocalStorage?.avatar) {
-      return <Mage8Bit />;
-    }
-
-    const styleProps: {
-      color?: string;
-      fontFamily?: string;
-      fontSize?: number;
-      lineHeight?: string;
-      position?: string;
-      top?: number;
-    } = {
-      color: themeContext?.content?.active,
-      fontFamily: MONO_FONT_FAMILY_BOLD,
-    };
-
-    if (hasAvatarAndNotEmoji) {
-      styleProps.fontSize = 2 * UNIT;
-      styleProps.lineHeight = `${2 * UNIT}px`;
-      styleProps.position = 'relative';
-      styleProps.top = 1;
-    } else {
-      styleProps.fontSize = 3 * UNIT;
-    }
-
-    return (
-      // @ts-ignore
-      <div style={styleProps}>
-        {userFromLocalStorage?.avatar}
-      </div>
-    );
-  }, [
-    hasAvatarAndNotEmoji,
-    userFromLocalStorage,
-  ]);
 
   useEffect(() => {
     const handleState = ({
@@ -435,8 +277,6 @@ function Header({
           justifyContent="space-between"
         >
           <Flex alignItems="center">
-            {logoLink}
-
             <Breadcrumbs
               breadcrumbs={breadcrumbs}
             />
@@ -483,29 +323,6 @@ function Header({
                 <Text black bold>Update</Text>
               </Button>
             )}
-
-            {version && typeof (version) !== 'undefined' && (
-              <Spacing px={1}>
-                <Link
-                  href="https://www.mage.ai/changelog"
-                  monospace
-                  noWrapping
-                  openNewWindow
-                  sameColorAsText
-                  small
-                >
-                  {`v${version}`}
-                </Link>
-              </Spacing>
-            )}
-
-            <Spacing ml={1}>
-              <ServerTimeDropdown
-                disableTimezoneToggle={projectPlatformOverrideFeaturesEnabled}
-                disabled={hideActions}
-                projectName={project?.name}
-              />
-            </Spacing>
 
             {/* <Spacing ml={1}>
               <KeyboardShortcutButton
@@ -600,55 +417,6 @@ function Header({
                 </ClickOutside>
               </>
             }
-
-            {(loggedIn || !REQUIRE_USER_AUTHENTICATION()) && (
-              <>
-                <Spacing ml={1} />
-
-                <ClickOutside
-                  onClickOutside={() => setUserMenuVisible(false)}
-                  open
-                  style={{
-                    position: 'relative',
-                  }}
-                >
-                  <FlexContainer alignItems="flex-end" flexDirection="column">
-                    <KeyboardShortcutButton
-                      compact
-                      highlightOnHoverAlt
-                      inline
-                      noBackground
-                      noHoverUnderline
-                      onClick={() => setUserMenuVisible(true)}
-                      ref={refUserMenu}
-                      uuid="Header/menu"
-                    >
-                      {hasAvatarEmoji && userFromLocalStorage?.avatar?.length >= 2
-                        ? avatarMemo
-                        : (
-                          <Circle
-                            color={BLUE_TRANSPARENT}
-                            size={4 * UNIT}
-                          >
-                            {avatarMemo}
-                          </Circle>
-                        )
-                      }
-                    </KeyboardShortcutButton>
-
-                    <FlyoutMenu
-                      alternateBackground
-                      items={userDropdown}
-                      onClickCallback={() => setUserMenuVisible(false)}
-                      open={userMenuVisible}
-                      parentRef={refUserMenu}
-                      rightOffset={0}
-                      uuid="shared/Header/user_menu"
-                    />
-                  </FlexContainer>
-                </ClickOutside>
-              </>
-            )}
           </Flex>
         </FlexContainer>
       </ClientOnly>

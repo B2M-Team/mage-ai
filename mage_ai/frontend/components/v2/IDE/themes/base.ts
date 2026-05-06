@@ -249,7 +249,7 @@ function build(theme: ThemeType): IDEThemeType {
       // Foreground color of editor widgets, such as find/replace.
       'editorWidget.foreground': '#FFFFFF',
       // Background color of editor widgets, such as Find/Replace.
-      'editorWidget.background': '#232429B3',
+      'editorWidget.background': '#F4F4F6E6',
       // Border color of the editor widget unless the widget does not contain a border or defines its own border color.
       'editorWidget.border': '#FFFFFF',
       // // Border color of the resize bar of editor widgets. The color is only used if the widget chooses to have a resize border and if the color is not overridden by a widget.

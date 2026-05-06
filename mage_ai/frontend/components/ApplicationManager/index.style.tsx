@@ -121,7 +121,7 @@ export const RootApplicationStyle = styled.div`
         border-radius: 120px;
         bottom: 0;
         box-shadow:
-          0 0 0 8px #18181C,
+          0 0 0 8px #E8E9EC,
           0 0 0 24px rgba(72, 119, 255, 0.3);
         transform: scale(${SCALE_PERCENTAGE});
         transform-origin: 0 0;
@@ -129,7 +129,7 @@ export const RootApplicationStyle = styled.div`
         &:hover {
           ${transition()}
           box-shadow:
-            0 0 0 8px #18181C,
+            0 0 0 8px #E8E9EC,
             0 0 0 32px #2A60FE;
           cursor: pointer;
         }
@@ -233,8 +233,8 @@ export const HeaderStyle = styled.div<{
   relative?: boolean;
 }>`
   backdrop-filter: saturate(140%) blur(${3 * UNIT}px);
-  background-color: rgb(0, 0, 0, 0.9);
-  border-bottom: 1px solid #2e3036;
+  background-color: ${props => (props.theme.background || dark.background).header};
+  border-bottom: 1px solid ${props => (props.theme.borders || dark.borders).light};
   border-top-left-radius: ${BORDER_RADIUS_XLARGE}px;
   border-top-right-radius: ${BORDER_RADIUS_XLARGE}px;
   height: ${HEADER_HEIGHT}px;

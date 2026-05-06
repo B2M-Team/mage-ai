@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
+import light from '@oracle/styles/themes/light';
 import { UNIT } from '@oracle/styles/units/spacing';
 
 export const EntryStyle = styled.div<any>`
-  border-bottom: 1px solid #1C1C1C;
+  border-bottom: 1px solid ${props => (props.theme.borders || light.borders).medium};
 
-  background: #232429;
+  background: ${props => (props.theme.background || light.background).panel};
   padding: ${2 * UNIT}px;
 
   ${props => props.selected && `
-    background: #2E3036;
+    background: ${(props.theme.background || light.background).muted};
   `}
 `;

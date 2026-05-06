@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { ASIDE_HEADER_HEIGHT } from '@components/TripleLayout/index.style';
 import { COLUMN_HEADER_CHART_HEIGHT } from '@components/datasets/overview/utils';
+import light from '@oracle/styles/themes/light';
 import { REGULAR_LINE_HEIGHT } from '@oracle/styles/fonts/sizes';
 import { SCROLLBAR_WIDTH } from '@oracle/styles/scrollbars';
 import { UNIT } from '@oracle/styles/units/spacing';
@@ -37,7 +38,7 @@ export const CellStyle = styled.td<any>`
   align-items: center;
   justify-content: space-between;
 
-  border: 1px solid #1C1C1C;
+  border: 1px solid ${props => (props.theme.borders || light.borders).medium};
   height: 100%;
 
   ${props => !props.noPadding && `

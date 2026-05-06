@@ -337,7 +337,7 @@ export const BlockDivider = styled.div<{
 
     .block-divider-inner {
       ${props => `
-        background-color: ${(props.theme.text || dark.text).fileBrowser};
+        background-color: ${props.theme?.text?.fileBrowser ?? props.theme?.content?.muted ?? dark.text.fileBrowser};
       `}
     }
   }

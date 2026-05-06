@@ -10,4 +10,4 @@ export interface ModeType {
   [ModeEnum.MODE3]: number | string;
 }
 
-export const DEFAULT_MODE = ModeEnum.DARK;
+export const DEFAULT_MODE = ModeEnum.LIGHT;
