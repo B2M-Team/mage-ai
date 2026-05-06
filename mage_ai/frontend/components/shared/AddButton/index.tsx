@@ -15,6 +15,8 @@ export const SHARED_BUTTON_PROPS = {
 export type AddButtonProps = {
   addButtonMenuOpen: boolean;
   addButtonMenuRef?: React.RefObject<any>;
+  /** Solid fill replaces gradient; label and icon use white. */
+  backgroundColor?: string;
   isLoading?: boolean;
   label: string;
   menuItems: FlyoutMenuItemType[];
@@ -25,12 +27,15 @@ export type AddButtonProps = {
 function AddButton({
   addButtonMenuOpen,
   addButtonMenuRef,
+  backgroundColor,
   isLoading,
   label,
   menuItems,
   onClick,
   onClickCallback,
 }: AddButtonProps) {
+  const solid = !!backgroundColor;
+
   return (
     <FlyoutMenuWrapper
       disableKeyboardShortcuts
@@ -45,8 +50,24 @@ function AddButton({
     >
       <KeyboardShortcutButton
         {...SHARED_BUTTON_PROPS}
-        background={BUTTON_GRADIENT}
-        beforeElement={<Add size={2.5 * UNIT} />}
+        {...(solid
+          ? {
+            backgroundColor,
+            greyBorder: false,
+            noHover: true,
+            style: {
+              color: '#fff',
+            },
+          }
+          : {
+            background: BUTTON_GRADIENT,
+          })}
+        beforeElement={
+          <Add
+            size={2.5 * UNIT}
+            {...(solid ? { fill: '#ffffff' } : {})}
+          />
+        }
         loading={isLoading}
         onClick={e => {
           e.preventDefault();

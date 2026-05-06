@@ -98,14 +98,10 @@ export const OptionStyle = styled.div<{
 
   &:hover {
     cursor: pointer;
-
-    ${props => `
-      background-color: ${(props.theme || dark).monotone.black};
-    `}
   }
 
   ${props => props.highlighted && `
-    background-color: ${(props.theme || dark).monotone.black};
+    background-color: ${(props.theme.interactive || dark.interactive).hoverBackgroundTransparent};
   `}
 `;
 

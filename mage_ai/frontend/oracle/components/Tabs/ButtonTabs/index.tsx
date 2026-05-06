@@ -27,6 +27,7 @@ type ButtonTabsProps = {
   noPadding?: boolean;
   onClickTab: (tab: TabType) => void;
   regularSizeText?: boolean;
+  selectedTabBorderGradient?: string;
   selectedTabUUID?: string;
   selectedTabUUIDs?: {
     [tabUUID: string]: TabType;
@@ -47,6 +48,7 @@ function ButtonTabs({
   noPadding,
   onClickTab,
   regularSizeText,
+  selectedTabBorderGradient = PURPLE_BLUE,
   selectedTabUUID,
   selectedTabUUIDs,
   showScrollbar,
@@ -123,7 +125,7 @@ function ButtonTabs({
       if (selected && !underlineStyle) {
         arr.push(
           <GradientButton
-            backgroundGradient={PURPLE_BLUE}
+            backgroundGradient={selectedTabBorderGradient}
             backgroundPanel
             borderLess
             borderWidth={2}
@@ -193,6 +195,7 @@ function ButtonTabs({
   }, [
     compact,
     onClickTab,
+    selectedTabBorderGradient,
     selectedTabUUID,
     small,
     tabs,

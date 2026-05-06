@@ -18,6 +18,7 @@ import {
 } from '@interfaces/ChartBlockType';
 import { BlockTypeEnum } from '@interfaces/BlockType';
 import { DataSourceEnum } from '@interfaces/BlockLayoutItemType';
+import { MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT } from '@components/Dashboard/index.style';
 import { HEADER_HEIGHT } from '@components/shared/Header/index.style';
 import { PageNameEnum } from '@components/PipelineDetailPage/constants';
 import { RunStatus } from '@interfaces/BlockRunType';
@@ -226,7 +227,7 @@ def d(df):
     <BlockLayout
       leftOffset={9 * UNIT}
       pageBlockLayoutTemplate={pageBlockLayoutTemplate}
-      topOffset={HEADER_HEIGHT}
+      topOffset={HEADER_HEIGHT + MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT}
       uuid={`pipelines/${pipelineUUID}/dashboard`}
     />
   ), [pageBlockLayoutTemplate, pipelineUUID]);

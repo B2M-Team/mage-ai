@@ -31,7 +31,29 @@ import { PADDING_UNITS, UNIT } from '@oracle/styles/units/spacing';
 import Link from '@oracle/elements/Link';
 
 const ICON_SIZE = 3 * UNIT;
-const DEFAULT_NAV_ITEMS = ({
+
+/**
+ * Turns grouped dashboard nav (main + misc) or a flat list into tab bar entries.
+ */
+export function flattenNavigationForTabs(
+  groupsOrFlat: Array<
+    NavigationItem & { items?: NavigationItem[] }
+  >,
+): NavigationItem[] {
+  const out: NavigationItem[] = [];
+  groupsOrFlat.forEach((entry) => {
+    if (entry.items?.length >= 1) {
+      entry.items.forEach((item) => {
+        out.push(item);
+      });
+    } else {
+      out.push(entry);
+    }
+  });
+  return out;
+}
+
+export const DEFAULT_NAV_ITEMS = ({
   featureEnabled,
   project,
   projectPlatformActivated,

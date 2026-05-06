@@ -32,6 +32,7 @@ import { isViewer } from '@utils/session';
 
 type ToolbarProps = {
   addButtonProps?: {
+    backgroundColor?: string;
     isLoading?: boolean;
     label?: string;
     onClick?: () => void;
@@ -174,6 +175,7 @@ function Toolbar({
   ), [filterOptions, query]);
 
   const {
+    backgroundColor: addButtonBackgroundColor,
     label: addButtonLabel,
     menuItems: addButtonMenuItems,
     onClick: onClickAddButton,
@@ -183,6 +185,7 @@ function Toolbar({
     <AddButton
       addButtonMenuOpen={addButtonMenuOpen}
       addButtonMenuRef={addButtonMenuRef}
+      backgroundColor={addButtonBackgroundColor}
       isLoading={isLoadingAddButton}
       label={addButtonLabel}
       menuItems={addButtonMenuItems}
@@ -193,6 +196,7 @@ function Toolbar({
       onClickCallback={closeAddButtonMenu}
     />
   ), [
+    addButtonBackgroundColor,
     addButtonLabel,
     addButtonMenuItems,
     addButtonMenuOpen,

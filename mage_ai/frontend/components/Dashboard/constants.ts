@@ -3,6 +3,9 @@ import { TabType } from '@oracle/components/Tabs/ButtonTabs';
 import { TIME_PERIOD_DISPLAY_MAPPING, TimePeriodEnum } from '@utils/date';
 import { capitalize } from '@utils/string';
 
+/** Solid accent for primary actions (e.g. New pipeline, active pagination). */
+export const DASHBOARD_BRAND_ACCENT = '#5951ff';
+
 export const TAB_TODAY = {
   Icon: Smiley,
   label: () => capitalize(TIME_PERIOD_DISPLAY_MAPPING[TimePeriodEnum.TODAY]),
