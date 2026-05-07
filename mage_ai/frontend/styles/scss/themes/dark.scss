@@ -1,4 +1,4 @@
-@use '../modes/dark' as mode;
+@use '../modes/light' as mode;
 @use './base';
 
 body[data-theme="dark"] {

@@ -12,22 +12,14 @@ import ProjectType, { FeatureUUIDEnum } from '@interfaces/ProjectType';
 import Spacing from '@oracle/elements/Spacing';
 import Text from '@oracle/elements/Text';
 import Tooltip from '@oracle/components/Tooltip';
-import api from '@api'
 import useProject from '@utils/models/project/useProject';
 import {
-  BranchAlt,
-  Insights,
-  DocumentIcon,
   Lightning,
   NavDashboard,
-  Rocket,
   PipelineV3,
   Schedule,
   Settings,
-  HexagonAll,
   TemplateShapes,
-  Terminal,
-  TripleBoxes,
   Secrets,
 } from '@oracle/icons';
 import {
@@ -36,11 +28,32 @@ import {
 } from './index.style';
 import { PURPLE_BLUE } from '@oracle/styles/colors/gradients';
 import { PADDING_UNITS, UNIT } from '@oracle/styles/units/spacing';
-import { pushAtIndex } from '@utils/array';
 import Link from '@oracle/elements/Link';
 
 const ICON_SIZE = 3 * UNIT;
-const DEFAULT_NAV_ITEMS = ({
+
+/**
+ * Turns grouped dashboard nav (main + misc) or a flat list into tab bar entries.
+ */
+export function flattenNavigationForTabs(
+  groupsOrFlat: Array<
+    NavigationItem & { items?: NavigationItem[] }
+  >,
+): NavigationItem[] {
+  const out: NavigationItem[] = [];
+  groupsOrFlat.forEach((entry) => {
+    if (entry.items?.length >= 1) {
+      entry.items.forEach((item) => {
+        out.push(item);
+      });
+    } else {
+      out.push(entry);
+    }
+  });
+  return out;
+}
+
+export const DEFAULT_NAV_ITEMS = ({
   featureEnabled,
   project,
   projectPlatformActivated,
@@ -49,37 +62,13 @@ const DEFAULT_NAV_ITEMS = ({
   project?: ProjectType;
   projectPlatformActivated?: boolean;
 }) => {
-  let miscItems = [
-    {
-      Icon: DocumentIcon,
-      id: 'files',
-      label: () => 'Files',
-      linkProps: {
-        href: '/files',
-      },
-    },
+  const miscItems = [
     {
       Icon: TemplateShapes,
       id: 'templates',
       label: () => 'Templates',
       linkProps: {
         href: '/templates',
-      },
-    },
-    {
-      Icon: BranchAlt,
-      id: 'version-control',
-      label: () => 'Version control',
-      linkProps: {
-        href: '/version-control',
-      },
-    },
-    {
-      Icon: Terminal,
-      id: 'terminal',
-      label: () => 'Terminal',
-      linkProps: {
-        href: '/terminal',
       },
     },
     {
@@ -126,14 +115,6 @@ const DEFAULT_NAV_ITEMS = ({
           label: () => 'Pipeline runs',
           linkProps: {
             href: '/pipeline-runs',
-          },
-        },
-        {
-          Icon: HexagonAll,
-          id: 'global-data-products',
-          label: () => 'Global data products',
-          linkProps: {
-            href: '/global-data-products',
           },
         },
         {

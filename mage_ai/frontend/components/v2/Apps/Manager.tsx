@@ -5,13 +5,11 @@ import dynamic from 'next/dynamic';
 import { createRoot } from 'react-dom/client';
 
 import TextInput from '@mana/elements/Input/TextInput';
-import Button, { ButtonGroup } from '@mana/elements/Button';
+import Button from '@mana/elements/Button';
 import Grid from '@mana/components/Grid';
-import { ModeEnum } from '@mana/themes/modes';
 import { AppConfigType, OperationTypeEnum, PanelType } from './interfaces';
-import { setThemeSettings } from '@mana/themes/utils';
 import { DefaultPanel } from './catalog';
-import { Dark, Menu, PanelCollapseLeft } from '@mana/icons';
+import { Menu, PanelCollapseLeft } from '@mana/icons';
 import { updateClassnames, upsertRootElement } from './utils';
 import styles from '@styles/scss/apps/Manager/Manager.module.scss';
 
@@ -195,18 +193,7 @@ function Manager() {
 
           <TextInput monospace number placeholder="Column" />
 
-          <ButtonGroup>
-            <Button
-              Icon={Dark}
-              onClick={() =>
-                setThemeSettings(({ mode }) => ({
-                  mode: ModeEnum.LIGHT === mode ? ModeEnum.DARK : ModeEnum.LIGHT,
-                }))
-              }
-            >
-              Theme
-            </Button>
-          </ButtonGroup>
+          <div />
         </Grid>
 
         <Grid

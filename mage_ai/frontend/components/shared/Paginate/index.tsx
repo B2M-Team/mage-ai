@@ -9,6 +9,10 @@ import { PURPLE } from '@oracle/styles/colors/main';
 import { UNIT } from '@oracle/styles/units/spacing';
 
 type PaginateProps = {
+  /** Active page pill background (defaults to theme purple). */
+  activePageBackgroundColor?: string;
+  /** Active page number label color (e.g. white on brand fill). */
+  activePageTextColor?: string;
   page: number;
   maxPages: number;
   onUpdate: (page: number) => void;
@@ -19,6 +23,8 @@ export const ROW_LIMIT = 30;
 export const MAX_PAGES = 9;
 
 function Paginate({
+  activePageBackgroundColor = PURPLE,
+  activePageTextColor,
   page,
   maxPages: maxPagesProp,
   onUpdate,
@@ -84,7 +90,7 @@ function Paginate({
           {pageArray.map((p) => (
             <Spacing key={p} ml={1}>
               <Button
-                backgroundColor={p === page && PURPLE}
+                backgroundColor={p === page ? activePageBackgroundColor : undefined}
                 borderLess
                 noBackground
                 notClickable={p === page}
@@ -93,6 +99,9 @@ function Paginate({
                     onUpdate(p);
                   }
                 }}
+                {...(p === page && activePageTextColor
+                  ? { style: { color: activePageTextColor } }
+                  : {})}
               >
                 {p + 1}
               </Button>

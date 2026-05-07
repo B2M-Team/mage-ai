@@ -6,14 +6,14 @@ import ErrorsType from '@interfaces/ErrorsType';
 import Flex from '@oracle/components/Flex';
 import Head from '@oracle/elements/Head';
 import Header, { BreadcrumbType, MenuItemType } from '@components/shared/Header';
+import HorizontalMainNavigation from './HorizontalMainNavigation';
 import Subheader from './Subheader';
 import TripleLayout from '@components/TripleLayout';
-import VerticalNavigation, { VerticalNavigationProps } from './VerticalNavigation';
+import { VerticalNavigationProps } from './VerticalNavigation';
 import useProject from '@utils/models/project/useProject';
 import {
   ContainerStyle,
-  VERTICAL_NAVIGATION_WIDTH,
-  VerticalNavigationStyle,
+  MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT,
 } from './index.style';
 import { HEADER_HEIGHT } from '@components/shared/Header/index.style';
 import useTripleLayout, {
@@ -122,6 +122,11 @@ function Dashboard({
     }
   }
 
+  const showMainNavTabs = navigationItems?.length !== 0;
+  const layoutTopOffset = HEADER_HEIGHT + (showMainNavTabs ? MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT : 0);
+  const tripleLayoutHeaderOffset =
+    (headerOffset ?? 0) + (showMainNavTabs ? MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT : 0);
+
   return (
     <>
       <Head title={title} />
@@ -132,16 +137,13 @@ function Dashboard({
         menuItems={headerMenuItems}
       />
 
-      <ContainerStyle ref={ref}>
-        {navigationItems?.length !== 0 && (
-          <VerticalNavigationStyle showMore>
-            <VerticalNavigation
-              navigationItems={navigationItems}
-              showMore
-            />
-          </VerticalNavigationStyle>
-        )}
+      {showMainNavTabs && (
+        <HorizontalMainNavigation
+          navigationItems={navigationItems}
+        />
+      )}
 
+      <ContainerStyle ref={ref} $withMainNavTabs={showMainNavTabs}>
         <Flex
           flex={1}
           flexDirection="column"
@@ -150,19 +152,19 @@ function Dashboard({
           <TripleLayout
             after={after}
             afterHeader={afterHeader}
-            afterHeightOffset={HEADER_HEIGHT}
+            afterHeightOffset={layoutTopOffset}
             afterHidden={afterHidden}
             afterMousedownActive={mousedownActiveAfter}
             afterWidth={widthAfter}
             before={before}
             beforeHeader={beforeHeader}
-            beforeHeightOffset={HEADER_HEIGHT}
+            beforeHeightOffset={layoutTopOffset}
             beforeMousedownActive={mousedownActiveBefore}
-            beforeWidth={before ? widthBefore : VERTICAL_NAVIGATION_WIDTH}
+            beforeWidth={before ? widthBefore : 0}
             contained={contained}
-            headerOffset={headerOffset}
+            headerOffset={tripleLayoutHeaderOffset}
             hideAfterCompletely={!after || hideAfterCompletely}
-            leftOffset={before ? VERTICAL_NAVIGATION_WIDTH : null}
+            leftOffset={0}
             mainContainerHeader={mainContainerHeader}
             mainContainerRef={mainContainerRef}
             setAfterHidden={setAfterHidden}

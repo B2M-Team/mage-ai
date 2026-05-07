@@ -9,6 +9,7 @@ import Text from '@oracle/elements/Text';
 import TextArea from '@oracle/elements/Inputs/TextArea';
 import TextInput from '@oracle/elements/Inputs/TextInput';
 import dark from '@oracle/styles/themes/dark';
+import { DASHBOARD_BRAND_ACCENT } from '@components/Dashboard/constants';
 import {
   ContainerStyle,
   FooterStyle,
@@ -183,12 +184,15 @@ function ConfigurePipeline({
 
           <Flex flex="1">
             <KeyboardShortcutButton
+              backgroundColor={DASHBOARD_BRAND_ACCENT}
               bold
               centerText
               disabled={!pipelineAttributes?.name}
               fullWidth
+              greyBorder={false}
+              noHover
               onClick={handleOnSave}
-              primary
+              style={{ color: '#fff' }}
               uuid="ConfigurePipeline/CreatePipeline"
             >
               Create

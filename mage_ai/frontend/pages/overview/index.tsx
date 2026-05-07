@@ -64,9 +64,11 @@ import {
   getStartDateStringFromPeriod,
   unixTimestampFromDate,
 } from '@utils/date';
-import { TIME_PERIOD_TABS, TAB_DASHBOARD, TAB_TODAY } from '@components/Dashboard/constants';
+import { TIME_PERIOD_TABS, TAB_DASHBOARD, TAB_TODAY, DASHBOARD_BRAND_ACCENT } from '@components/Dashboard/constants';
 import { UNITS_BETWEEN_SECTIONS } from '@oracle/styles/units/spacing';
-import { VERTICAL_NAVIGATION_WIDTH } from '@components/Dashboard/index.style';
+import {
+  MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT,
+} from '@components/Dashboard/index.style';
 import {
   capitalize,
   cleanName,
@@ -413,6 +415,7 @@ function OverviewPage({ tab }: { tab?: TimePeriodEnum }) {
       <AddButton
         addButtonMenuOpen={addButtonMenuOpen}
         addButtonMenuRef={newPipelineButtonMenuRef}
+        backgroundColor={DASHBOARD_BRAND_ACCENT}
         isLoading={isLoadingCreatePipeline}
         label="New pipeline"
         menuItems={newPipelineButtonMenuItems}
@@ -643,6 +646,7 @@ def d(df):
                 setSelectedTab(() => allTabs.find(t => uuid === t.uuid));
               }}
               regularSizeText
+              selectedTabBorderGradient={DASHBOARD_BRAND_ACCENT}
               selectedTabUUID={timePeriod}
               tabs={allTabs}
             />
@@ -652,9 +656,13 @@ def d(df):
 
       {TAB_DASHBOARD.uuid === selectedTab?.uuid && (
         <BlockLayout
-          leftOffset={VERTICAL_NAVIGATION_WIDTH - 1}
+          leftOffset={0}
           pageBlockLayoutTemplate={pageBlockLayoutTemplate}
-          topOffset={HEADER_HEIGHT + refSubheader?.current?.getBoundingClientRect()?.height}
+          topOffset={
+            HEADER_HEIGHT
+            + MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT
+            + (refSubheader?.current?.getBoundingClientRect()?.height || 0)
+          }
           uuid="overview/dashboard"
         />
       )}

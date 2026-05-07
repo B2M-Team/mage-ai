@@ -2,13 +2,14 @@ import { useEffect, useMemo, useState } from 'react';
 
 import api from '@api';
 import { META_QUERY_KEYS, MetaQueryEnum } from '@api/constants';
+import { DASHBOARD_BRAND_ACCENT } from '@components/Dashboard/constants';
 import Dashboard from '@components/Dashboard';
 import Secrets from '@components/Secrets';
 import SecretDetail from '@components/Secrets/SecretDetail';
 import Paginate, { MAX_PAGES, ROW_LIMIT } from '@components/shared/Paginate';
 import PrivateRoute from '@components/shared/PrivateRoute';
 import FlexContainer from '@oracle/components/FlexContainer';
-import Button from '@oracle/elements/Button';
+import KeyboardShortcutButton from '@oracle/elements/Button/KeyboardShortcutButton';
 import Select from '@oracle/elements/Inputs/Select';
 import Spacing from '@oracle/elements/Spacing';
 import Text from '@oracle/elements/Text';
@@ -122,13 +123,21 @@ function SecretsPage() {
       subheaderChildren={(
         <FlexContainer justifyContent="space-between">
           <Spacing pr={PADDING_UNITS}>
-            <Button
-              beforeIcon={<Add size={UNIT * 2.5} />}
+            <KeyboardShortcutButton
+              backgroundColor={DASHBOARD_BRAND_ACCENT}
+              beforeElement={<Add fill="#ffffff" size={UNIT * 2.5} />}
+              bold
+              fitContentWidth
+              greyBorder={false}
+              noHover
               onClick={() => setShowSecretDetail(true)}
-              primary
+              paddingBottom={9}
+              paddingTop={9}
+              style={{ color: '#fff' }}
+              uuid="secrets/index/NewSecret"
             >
               New secret
-            </Button>
+            </KeyboardShortcutButton>
           </Spacing>
           {limitMemo}
         </FlexContainer>

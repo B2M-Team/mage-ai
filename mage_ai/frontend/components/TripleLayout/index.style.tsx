@@ -148,7 +148,7 @@ const ASIDE_DRAGGABLE_STYLE = css<{
 
   &:hover {
     ${props => !props.disabled && `
-      border-color: ${(props.theme.text || dark.text).fileBrowser} !important;
+      border-color: ${props.theme?.text?.fileBrowser ?? props.theme?.content?.muted ?? dark.text.fileBrowser} !important;
     `}
   }
 
@@ -166,7 +166,7 @@ const ASIDE_DRAGGABLE_STYLE = css<{
   `}
 
   ${props => props.active && !props.disabled && `
-    border-color: ${(props.theme.text || dark.text).fileBrowser} !important;
+    border-color: ${props.theme?.text?.fileBrowser ?? props.theme?.content?.muted ?? dark.text.fileBrowser} !important;
   `}
 `;
 

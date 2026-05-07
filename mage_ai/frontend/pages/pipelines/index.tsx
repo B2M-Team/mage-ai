@@ -95,6 +95,7 @@ import { displayErrorFromReadResponse, onSuccess } from '@api/utils/response';
 import { filterQuery, queryFromUrl } from '@utils/url';
 import { get, set } from '@storage/localStorage';
 import { getNewPipelineButtonMenuItems } from '@components/Dashboard/utils';
+import { DASHBOARD_BRAND_ACCENT } from '@components/Dashboard/constants';
 import { goToWithQuery } from '@utils/routing';
 import { isEmptyObject, selectEntriesWithValues } from '@utils/hash';
 import { pauseEvent } from '@utils/events';
@@ -730,6 +731,7 @@ function PipelineListPage() {
   const toolbarEl = useMemo(() => (
     <Toolbar
       addButtonProps={{
+        backgroundColor: DASHBOARD_BRAND_ACCENT,
         isLoading: isLoadingCreate,
         label: 'New',
         menuItems: newPipelineButtonMenuItems,
@@ -1469,6 +1471,8 @@ function PipelineListPage() {
     return (
       <Spacing p={PADDING_UNITS}>
         <Paginate
+          activePageBackgroundColor={DASHBOARD_BRAND_ACCENT}
+          activePageTextColor="#ffffff"
           maxPages={MAX_PAGES}
           onUpdate={(p) => {
             const newPage = Number(p);

@@ -28,8 +28,13 @@ function NextAppV2({
   } = pageProps || ({} as any);
 
   const themeSettings = (themeSettingsProp?.[version] || getThemeSettings()) as ThemeSettingsType;
-  const theme = themeSettings?.theme || getTheme({ theme: themeSettings });
-  const mode = themeSettings?.mode || ModeEnum.DARK;
+  const mode = ModeEnum.LIGHT;
+  const theme = getTheme({
+    theme: {
+      ...themeSettings,
+      mode,
+    },
+  });
 
   useEffect(() => {
     if (typeof document !== 'undefined') {

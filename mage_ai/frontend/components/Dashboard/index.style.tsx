@@ -11,16 +11,103 @@ import { transition } from '@oracle/styles/mixins';
 
 export const VERTICAL_NAVIGATION_WIDTH = (PADDING_UNITS * UNIT) + (5 * UNIT) + (PADDING_UNITS * UNIT) + 1;
 
-export const ContainerStyle = styled.div`
+/**
+ * Matches where the first breadcrumb label starts:
+ * Header padding-left (2*UNIT) + Breadcrumbs first Spacing ml={2} (theme.space[2] === 2*UNIT).
+ */
+export const MAIN_NAV_TAB_ROW_INSET_LEFT = 4 * UNIT;
+
+/** Fixed strip under the app header for primary horizontal nav tabs */
+export const MAIN_NAV_TAB_BAR_HEIGHT = Math.round(5 * UNIT);
+
+/** Breathing room between the tab bar and page content */
+export const MAIN_NAV_TAB_BAR_MARGIN_BOTTOM = 2 * UNIT;
+
+/** Total vertical space reserved below the app header when tabs are shown */
+export const MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT =
+  MAIN_NAV_TAB_BAR_HEIGHT + MAIN_NAV_TAB_BAR_MARGIN_BOTTOM;
+
+export const ContainerStyle = styled.div<{
+  $withMainNavTabs?: boolean;
+}>`
   display: flex;
   flex-direction: row;
-  height: calc(100vh - ${HEADER_HEIGHT}px);
+  height: calc(100vh - ${HEADER_HEIGHT}px - ${props =>
+    props.$withMainNavTabs ? MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT : 0}px);
   position: fixed;
-  top: ${HEADER_HEIGHT}px;
+  top: ${props =>
+    HEADER_HEIGHT + (props.$withMainNavTabs ? MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT : 0)}px;
   width: 100%;
 
   ${props => `
     background-color: ${(props.theme.background || dark.background).page};
+  `}
+`;
+
+export const MainNavTabBarStyle = styled.nav`
+  align-items: stretch;
+  background-color: ${props => (props.theme.background || dark.background).panel};
+  border-bottom: 1px solid ${props => (props.theme.borders || dark.borders).medium};
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  left: 0;
+  margin-bottom: ${MAIN_NAV_TAB_BAR_MARGIN_BOTTOM}px;
+  min-height: ${MAIN_NAV_TAB_BAR_HEIGHT}px;
+  overflow-x: auto;
+  padding: 0 ${UNIT}px 0 ${MAIN_NAV_TAB_ROW_INSET_LEFT}px;
+  position: fixed;
+  top: ${HEADER_HEIGHT}px;
+  width: 100%;
+  z-index: 9;
+  ${ScrollbarStyledCss}
+`;
+
+export const MainNavTabListStyle = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: ${UNIT * 1.5}px;
+  min-height: ${MAIN_NAV_TAB_BAR_HEIGHT - 2}px;
+
+  /* First tab label aligns with first breadcrumb (no extra link padding on the left) */
+  & > a:first-of-type {
+    padding-left: 0;
+  }
+`;
+
+export const MainNavTabLinkStyle = styled.a<{
+  $active?: boolean;
+  $disabled?: boolean;
+}>`
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  margin-bottom: -1px;
+  padding: ${2 * UNIT}px ${0.75 * UNIT}px;
+  text-decoration: none;
+  white-space: nowrap;
+  ${transition()}
+
+  ${props => props.$disabled && `
+    cursor: not-allowed;
+    opacity: 0.45;
+    pointer-events: none;
+  `}
+
+  ${props => !props.$active && !props.$disabled && `
+    &:hover {
+      background-color: ${(props.theme.interactive || dark.interactive).hoverBackground};
+    }
+  `}
+
+  ${props => props.$active && `
+    border-bottom-color: ${(props.theme.monotone || dark.monotone).black};
+    font-weight: 600;
   `}
 `;
 
