@@ -14,7 +14,7 @@ const ToastWrapper = styled.div`
 
   .Toastify__toast {
     border-radius: ${BORDER_RADIUS}px !important;
-    font-family: Greycliff Medium, Helvetica Neue, Helvetica, sans-serif !important;
+    font-family: 'Apercu', sans-serif !important;
     font-size: 14px !important;
     line-height: 20px !important;
     margin-bottom: 0 !important;

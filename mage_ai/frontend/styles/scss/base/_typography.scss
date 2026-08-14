@@ -2,19 +2,17 @@
   font-family: var(--fonts-family-base-regular);
 
   &.light {
-    font-family: var(--fonts-family-base-lightfont);
+    font-weight: var(--fonts-weight-light);
   }
   &.medium {
-    font-family: var(--fonts-family-base-medium);
+    font-weight: var(--fonts-weight-medium);
   }
   &.semibold {
-    font-family: var(--fonts-family-base-semibold);
+    font-weight: var(--fonts-weight-semibold);
   }
-  &.black {
-    font-family: var(--fonts-family-base-black);
-  }
+  &.black,
   &.bold {
-    font-family: var(--fonts-family-base-bold);
+    font-weight: var(--fonts-weight-bold);
   }
 }
 

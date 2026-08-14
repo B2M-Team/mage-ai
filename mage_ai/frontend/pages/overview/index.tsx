@@ -649,6 +649,7 @@ def d(df):
               selectedTabBorderGradient={DASHBOARD_BRAND_ACCENT}
               selectedTabUUID={timePeriod}
               tabs={allTabs}
+              uppercase={false}
             />
           </FlexContainer>
         </Spacing>

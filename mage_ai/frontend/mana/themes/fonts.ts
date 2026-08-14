@@ -48,12 +48,12 @@ export default function build(colors: ColorsType): FontsType {
     color: colors.typography,
     family: {
       base: {
-        black: 'Inter Black, sans-serif',
-        bold: 'Inter Bold, sans-serif',
-        lightFont: 'Inter Light, sans-serif',
-        medium: 'Inter Medium, sans-serif',
-        regular: 'Inter Regular, sans-serif',
-        semiBold: 'Inter SemiBold, sans-serif',
+        black: "'Apercu', sans-serif",
+        bold: "'Apercu', sans-serif",
+        lightFont: "'Apercu', sans-serif",
+        medium: "'Apercu', sans-serif",
+        regular: "'Apercu', sans-serif",
+        semiBold: "'Apercu', sans-serif",
       },
       monospace: {
         black: 'Fira Code Bold, monospace',
@@ -74,7 +74,7 @@ export default function build(colors: ColorsType): FontsType {
       xs: '125%',
     },
     size: {
-      base: '16px',
+      base: '15px',
       sm: '14px',
       xs: '12px',
     },
