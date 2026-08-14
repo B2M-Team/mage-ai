@@ -20,7 +20,6 @@ import {
 } from '@oracle/styles/units/borders';
 import { ButtonHighlightProps, SHARED_HIGHLIGHT_STYLES } from '.';
 import {
-  FONT_FAMILY_BOLD,
   FONT_FAMILY_REGULAR,
 } from '@oracle/styles/fonts/primary';
 import {
@@ -249,7 +248,7 @@ const SHARED_STYLES = css<KeyboardShortcutButtonProps>`
 
   ${props => props.secondary && `
     flex-basis: content;
-    font-family: ${FONT_FAMILY_BOLD};
+    font-weight: 700;
     padding: 0;
   `}
 
@@ -258,7 +257,7 @@ const SHARED_STYLES = css<KeyboardShortcutButtonProps>`
   `}
 
   ${props => props.bold && `
-    font-family: ${FONT_FAMILY_BOLD};
+    font-weight: 700;
   `}
 
   ${props => !props.muted && !props.inverted && `

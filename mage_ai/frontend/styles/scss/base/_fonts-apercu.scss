@@ -1,0 +1,64 @@
+// B2Metric IQ typography — place Apercu_*.otf files in public/fonts/
+@font-face {
+  font-family: 'Apercu';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/fonts/Apercu_Light.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/fonts/Apercu_Light_Italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Apercu_Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Apercu_Italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/Apercu_Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/Apercu_Medium_Italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Apercu_Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Apercu';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Apercu_Bold_Italic.otf') format('opentype');
+}

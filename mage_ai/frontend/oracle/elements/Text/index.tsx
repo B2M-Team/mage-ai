@@ -3,11 +3,7 @@ import styled, { css } from 'styled-components';
 
 import dark from '@oracle/styles/themes/dark';
 import {
-  FONT_FAMILY_BOLD,
-  FONT_FAMILY_LIGHT,
-  FONT_FAMILY_MEDIUM,
   FONT_FAMILY_REGULAR,
-  FONT_FAMILY_THIN,
   MONO_FONT_FAMILY_BOLD,
   MONO_FONT_FAMILY_REGULAR,
 } from '@oracle/styles/fonts/primary';
@@ -128,24 +124,28 @@ export const SHARED_TEXT_STYLES = css<TextProps>`
     ${HEADLINE_SIZE}
   `}
 
-  ${props => !props.monospace && Number(props.weightStyle) === 0 && `
-    font-family: ${FONT_FAMILY_THIN};
-  `}
-
-  ${props => !props.monospace && Number(props.weightStyle) === 2 && `
-    font-family: ${FONT_FAMILY_LIGHT};
-  `}
-
-  ${props => !props.monospace && Number(props.weightStyle) === 3 && `
+  ${props => !props.monospace && `
     font-family: ${FONT_FAMILY_REGULAR};
   `}
 
+  ${props => !props.monospace && Number(props.weightStyle) === 0 && `
+    font-weight: 300;
+  `}
+
+  ${props => !props.monospace && Number(props.weightStyle) === 2 && `
+    font-weight: 300;
+  `}
+
+  ${props => !props.monospace && Number(props.weightStyle) === 3 && `
+    font-weight: 400;
+  `}
+
   ${props => !props.monospace && Number(props.weightStyle) === 4 && `
-    font-family: ${FONT_FAMILY_MEDIUM};
+    font-weight: 500;
   `}
 
   ${props => !props.monospace && (Number(props.weightStyle) === 6 || props.bold) && `
-    font-family: ${FONT_FAMILY_BOLD};
+    font-weight: 700;
   `}
 
   ${props => props.monospace && !props.bold && `

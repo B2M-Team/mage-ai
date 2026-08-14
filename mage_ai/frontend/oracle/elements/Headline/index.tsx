@@ -3,15 +3,7 @@ import { media } from 'styled-bootstrap-grid';
 
 import dark from '@oracle/styles/themes/dark';
 import {
-  FONT_FAMILY_BOLD,
-  FONT_FAMILY_BOLD as FONT_FAMILY_DEMI_BOLD,
-  FONT_FAMILY_BOLD as FONT_FAMILY_EXTRA_BOLD,
-  FONT_FAMILY_LIGHT as FONT_FAMILY_EXTRA_LIGHT,
-  FONT_FAMILY_BOLD as FONT_FAMILY_HEAVY,
-  FONT_FAMILY_LIGHT,
-  FONT_FAMILY_MEDIUM,
   FONT_FAMILY_REGULAR,
-  FONT_FAMILY_THIN,
 } from '@oracle/styles/fonts/primary';
 import {
   HERO,
@@ -70,40 +62,44 @@ const SHARED_STYLES = css<TextProps & HeadlineProps>`
     text-align: center;
   `}
 
-  ${props => !props.monospace && Number(props.weightStyle) === 0 && `
-    font-family: ${FONT_FAMILY_THIN};
-  `}
-
-  ${props => !props.monospace && Number(props.weightStyle) === 1 && `
-    font-family: ${FONT_FAMILY_EXTRA_LIGHT};
-  `}
-
-  ${props => !props.monospace && Number(props.weightStyle) === 2 && `
-    font-family: ${FONT_FAMILY_LIGHT};
-  `}
-
-  ${props => !props.monospace && Number(props.weightStyle) === 3 && `
+  ${props => !props.monospace && `
     font-family: ${FONT_FAMILY_REGULAR};
   `}
 
+  ${props => !props.monospace && Number(props.weightStyle) === 0 && `
+    font-weight: 300;
+  `}
+
+  ${props => !props.monospace && Number(props.weightStyle) === 1 && `
+    font-weight: 300;
+  `}
+
+  ${props => !props.monospace && Number(props.weightStyle) === 2 && `
+    font-weight: 300;
+  `}
+
+  ${props => !props.monospace && Number(props.weightStyle) === 3 && `
+    font-weight: 400;
+  `}
+
   ${props => !props.monospace && Number(props.weightStyle) === 4 && `
-    font-family: ${FONT_FAMILY_MEDIUM};
+    font-weight: 500;
   `}
 
   ${props => !props.monospace && Number(props.weightStyle) === 5 && `
-    font-family: ${FONT_FAMILY_DEMI_BOLD};
+    font-weight: 600;
   `}
 
   ${props => !props.monospace && (Number(props.weightStyle) === 6 || props.bold) && `
-    font-family: ${FONT_FAMILY_BOLD};
+    font-weight: 700;
   `}
 
   ${props => !props.monospace && Number(props.weightStyle) === 7 && `
-    font-family: ${FONT_FAMILY_EXTRA_BOLD};
+    font-weight: 700;
   `}
 
   ${props => !props.monospace && Number(props.weightStyle) === 8 && `
-    font-family: ${FONT_FAMILY_HEAVY};
+    font-weight: 700;
   `}
 
   ${props => props.lineHeightAuto && `

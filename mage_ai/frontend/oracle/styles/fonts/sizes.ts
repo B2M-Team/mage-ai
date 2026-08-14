@@ -1,6 +1,8 @@
-export const LARGE_FONT_SIZE: number = 16;
+export const BASE_FONT_SIZE: number = 15;
+export const LARGE_FONT_SIZE: number = 18;
 export const REGULAR_FONT_SIZE: number = 14;
 export const SMALL_FONT_SIZE: number = 12;
+export const MD_FONT_SIZE: number = 13;
 export const XSMALL_FONT_SIZE: number = 10;
 export const XXSMALL_FONT_SIZE: number = 8;
 
@@ -24,8 +26,8 @@ export const XXLARGE = `
 `;
 
 export const XLARGE = `
-  font-size: 32px;
-  line-height: ${XLARGE_LINE_HEIGHT}px;
+  font-size: 48px;
+  line-height: 56px;
 `;
 
 export const HEADLINE_SIZE = `
@@ -43,9 +45,19 @@ export const LARGE_SM = `
   line-height: ${LARGE_SM_LINE_HEIGHT}px;
 `;
 
+export const BASE = `
+  font-size: ${BASE_FONT_SIZE}px;
+  line-height: 22px;
+`;
+
+export const MD = `
+  font-size: ${MD_FONT_SIZE}px;
+  line-height: 18px;
+`;
+
 export const LARGE = `
   font-size: ${LARGE_FONT_SIZE}px;
-  line-height: 22px;
+  line-height: 24px;
 `;
 
 export const REGULAR = `

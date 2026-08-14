@@ -81,8 +81,7 @@ audio,
 video {
   border: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Apercu', sans-serif;
   font-size: 100%;
   font: inherit;
   margin: 0;
@@ -117,7 +116,11 @@ a {
 
 body {
   background-color: #FFFFFF;
-  line-height: 1;
+  color: #18181B;
+  font-family: 'Apercu', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.44;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -477,7 +480,7 @@ button,
 input,
 select,
 textarea {
-  color: #222;
+  color: #18181B;
 }
 
 ::-moz-selection {
@@ -509,55 +512,6 @@ textarea {
   background: #ccc;
   color: #000;
   padding: 0.2em 0;
-}
-
-@font-face {
-  font-family: 'Roboto Thin';
-  font-style: normal;
-  font-weight: 100;
-  src: url('/fonts/Roboto/Roboto-Thin.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Roboto Light';
-  font-style: normal;
-  font-weight: 300;
-  src: url('/fonts/Roboto/Roboto-Light.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Roboto Regular';
-  font-style: normal;
-  font-weight: 400;
-  src: url('/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Roboto Medium';
-  font-style: normal;
-  font-weight: 500;
-  src: url('/fonts/Roboto/Roboto-Medium.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Roboto Bold';
-  font-style: normal;
-  font-weight: 700;
-  src: url('/fonts/Roboto/Roboto-Bold.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Roboto Mono Regular';
-  font-style: normal;
-  font-weight: 400;
-  src: url('/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Roboto Mono Bold';
-  font-style: normal;
-  font-weight: 700;
-  src: url('/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf') format('truetype');
 }
 
 @font-face {

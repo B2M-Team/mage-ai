@@ -223,6 +223,7 @@ function OverviewPage({ tab }: { tab?: TimePeriodEnum }) {
               regularSizeText
               selectedTabUUID={timePeriod}
               tabs={allTabs}
+              uppercase={false}
             />
           </FlexContainer>
         </Spacing>

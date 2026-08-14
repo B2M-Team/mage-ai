@@ -22,7 +22,7 @@ import {
   OUTLINE_OFFSET,
   OUTLINE_WIDTH,
 } from '@oracle/styles/units/borders';
-import { FONT_FAMILY_BOLD, FONT_FAMILY_REGULAR } from '@oracle/styles/fonts/primary';
+import { FONT_FAMILY_REGULAR } from '@oracle/styles/fonts/primary';
 import { LARGE, REGULAR, SMALL } from '@oracle/styles/fonts/sizes';
 import { SHARED_LINK_STYLES } from '@oracle/elements/Link';
 import { UNIT } from '@oracle/styles/units/spacing';
@@ -133,12 +133,14 @@ const SHARED_STYLES = css<{
   position: relative;
   z-index: 0;
 
+  font-family: ${FONT_FAMILY_REGULAR};
+
   ${props => !props.noBold && `
-    font-family: ${FONT_FAMILY_BOLD};
+    font-weight: 700;
   `}
 
   ${props => props.noBold && `
-    font-family: ${FONT_FAMILY_REGULAR};
+    font-weight: 400;
   `}
 
   ${props => !props.hasOnClick && `

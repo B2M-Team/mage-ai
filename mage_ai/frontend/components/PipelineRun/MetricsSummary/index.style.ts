@@ -1,8 +1,22 @@
 import styled from 'styled-components';
 
 import dark from '@oracle/styles/themes/dark';
+import { FONT_FAMILY_REGULAR } from '@oracle/styles/fonts/primary';
 import { BORDER_RADIUS, BORDER_WIDTH, BORDER_STYLE } from '@oracle/styles/units/borders';
 import { UNIT } from '@oracle/styles/units/spacing';
+
+export const MetricCountText = styled.span<{ danger?: boolean }>`
+  font-family: ${FONT_FAMILY_REGULAR};
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38px;
+
+  ${props => `
+    color: ${props.danger
+      ? (props.theme.interactive || dark.interactive).dangerBorder
+      : (props.theme.content || dark.content).active};
+  `}
+`;
 
 export const MetricsSummaryContainerStyle = styled.div`
   width: 100%;

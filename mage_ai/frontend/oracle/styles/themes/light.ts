@@ -164,11 +164,11 @@ export default {
     tertiary: BLUE_HIGHLIGHT,
   },
   content: {
-    active: BLACK,
-    default: BLACK,
-    disabled: GRAY_LINES,
+    active: '#18181B',
+    default: '#18181B',
+    disabled: '#E4E4E7',
     inverted: WHITE,
-    muted: GRAY,
+    muted: '#71717A',
   },
   contentInverted: {
     active: WHITE,

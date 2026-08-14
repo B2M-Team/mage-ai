@@ -224,13 +224,13 @@ export interface ColorsType extends ColorsDerivedType {
 const Colors = {
   black: {
     [ModeEnum.DARK]: '#000000',
-    [ModeEnum.LIGHT]: '#000000',
-    [ModeEnum.MODE3]: '#000000',
+    [ModeEnum.LIGHT]: '#18181B',
+    [ModeEnum.MODE3]: '#18181B',
   },
   blackFixed: {
     [ModeEnum.DARK]: '#000000',
-    [ModeEnum.LIGHT]: '#000000',
-    [ModeEnum.MODE3]: '#000000',
+    [ModeEnum.LIGHT]: '#18181B',
+    [ModeEnum.MODE3]: '#18181B',
   },
   blackLo: {
     [ModeEnum.DARK]: '#00000033',
@@ -239,8 +239,8 @@ const Colors = {
   },
   blackMd: {
     [ModeEnum.DARK]: '#00000099', // 60%
-    [ModeEnum.LIGHT]: '#00000099',
-    [ModeEnum.MODE3]: '#00000099',
+    [ModeEnum.LIGHT]: '#71717A',
+    [ModeEnum.MODE3]: '#71717A',
   },
   blackHi: {
     [ModeEnum.DARK]: '#000000D9',
@@ -849,8 +849,8 @@ const ColorsDerived = {
     button: {
       base: convert({
         [ModeEnum.DARK]: 'white',
-        [ModeEnum.LIGHT]: '#130048',
-        [ModeEnum.MODE3]: '#130048',
+        [ModeEnum.LIGHT]: '#18181B',
+        [ModeEnum.MODE3]: '#18181B',
       }),
     },
     text: {

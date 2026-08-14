@@ -9,6 +9,7 @@ import Tooltip from '@oracle/components/Tooltip';
 import { GroupedPipelineRunCountType } from '@interfaces/MonitorStatsType';
 import {
   MetricContainerStyle,
+  MetricCountText,
   MetricsSummaryContainerStyle,
 } from './index.style';
 import {
@@ -102,17 +103,15 @@ function MetricsSummary({
                     <Text>
                       {capitalize(runStatus)}
                     </Text>
-                    <Text
-                      bold
+                    <MetricCountText
                       danger={runStatus === RunStatusEnum.FAILED && count > 0}
                       title={formatNumber(count)}
-                      xlarge
                     >
                       {formatNumberLabel(
                         count,
                         { maxFractionDigits: 1, minAmount: 1000 },
                       )}
-                    </Text>
+                    </MetricCountText>
                   </Flex>
                 </Spacing>
               ),
