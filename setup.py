@@ -18,7 +18,7 @@ setuptools.setup(
     name='b2m-sage-ai',
     # NOTE: when you change this, change the value of VERSION in the following file:
     # mage_ai/server/constants.py
-    version='0.9.79',
+    version='0.9.80',
     author='B2M',
     author_email='admin@b2metric.com',
     description='B2M Sage AI is a tool for building and deploying data pipelines.',
