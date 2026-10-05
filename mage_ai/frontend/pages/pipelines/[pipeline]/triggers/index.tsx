@@ -35,6 +35,7 @@ import api from '@api';
 import {
   ContainerStyle as RuntimeVariablesContainerStyle,
 } from '@components/RuntimeVariables/index.style';
+import { BRAND_ACCENT } from '@oracle/styles/colors/main';
 import { ICON_SIZE_SMALL } from '@oracle/styles/units/icons';
 import {
   Interactions as InteractionsIcon,
@@ -260,7 +261,7 @@ function PipelineSchedules({
                     href={'/pipelines/[pipeline]/edit'}
                     passHref
                   >
-                    <Link primary>
+                    <Link color={BRAND_ACCENT}>
                       Click here
                     </Link>
                   </NextLink> <Text inline>
@@ -355,6 +356,7 @@ function PipelineSchedules({
         {...SHARED_BUTTON_PROPS}
         Icon={InteractionsIcon}
         inline
+        noBackground
         onClick={() => setIsCreatingTrigger(true)}
         uuid="Create trigger with no-code"
       >

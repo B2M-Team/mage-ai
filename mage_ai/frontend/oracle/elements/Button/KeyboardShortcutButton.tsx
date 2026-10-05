@@ -10,7 +10,10 @@ import KeyboardShortcutWrapper, {
 import ModelThemeContext from '@context/ModelTheme';
 import Spinner from '@oracle/components/Spinner';
 import dark from '@oracle/styles/themes/dark';
-import { BLUE_GRADIENT } from '@oracle/styles/colors/main';
+import {
+  BRAND_ACCENT,
+  WHITE,
+} from '@oracle/styles/colors/main';
 import {
   BORDER_RADIUS,
   BORDER_STYLE,
@@ -18,7 +21,7 @@ import {
   OUTLINE_OFFSET,
   OUTLINE_WIDTH,
 } from '@oracle/styles/units/borders';
-import { ButtonHighlightProps, SHARED_HIGHLIGHT_STYLES } from '.';
+import { ButtonHighlightProps, buttonHasSolidBackground, SHARED_HIGHLIGHT_STYLES } from '.';
 import {
   FONT_FAMILY_REGULAR,
 } from '@oracle/styles/fonts/primary';
@@ -260,7 +263,14 @@ const SHARED_STYLES = css<KeyboardShortcutButtonProps>`
     font-weight: 700;
   `}
 
-  ${props => !props.muted && !props.inverted && `
+  ${props => !props.muted && !props.inverted && !buttonHasSolidBackground({
+    background: props.background,
+    backgroundColor: props.backgroundColor,
+    noBackground: props.noBackground,
+    primary: props.primary,
+    primaryGradient: props.primaryGradient,
+    secondary: props.secondary,
+  }) && `
     color: ${(props.theme.content || dark.content).active};
   `}
 
@@ -287,7 +297,7 @@ const SHARED_STYLES = css<KeyboardShortcutButtonProps>`
   `}
 
   ${props => props.greyBorder && `
-    border: ${BORDER_WIDTH}px ${BORDER_STYLE} ${(props.theme || dark).borders.button};
+    border: ${BORDER_WIDTH}px ${BORDER_STYLE} #E4E4E7;
   `}
 
   ${props => props.blackBorder && `
@@ -330,20 +340,10 @@ const SHARED_STYLES = css<KeyboardShortcutButtonProps>`
     background-color: ${(props.theme.monotone || dark.monotone).black};
   `}
 
-  ${props => !props.inverted && !props.noBackground && !props.primary && !props.noHover && `
-    background-color: ${(props.theme.interactive || dark.interactive).defaultBackground};
-
-    &:hover {
-      background-color: ${(props.theme.interactive || dark.interactive).hoverBackground};
-    }
-  `}
-
-  ${props => !props.inverted && !props.noBackground && !props.primary && props.noHover && `
-    background-color: ${(props.theme.interactive || dark.interactive).defaultBackground};
-  `}
-
   ${props => !props.noBackground && props.backgroundColor && `
     background-color: ${props.backgroundColor};
+    border-color: ${props.backgroundColor};
+    color: ${WHITE};
   `}
 
   ${props => props.noBackground && `
@@ -386,7 +386,9 @@ const SHARED_STYLES = css<KeyboardShortcutButtonProps>`
   `}
 
   ${props => props.primaryGradient && `
-    background: ${BLUE_GRADIENT} !important;
+    background-color: ${BRAND_ACCENT} !important;
+    border-color: ${BRAND_ACCENT};
+    color: ${WHITE};
   `}
 
   ${props => props.background && `
@@ -446,6 +448,12 @@ function KeyboardShortcutButton({
   noHover,
   onClick: onClickProp,
   padding,
+  background,
+  backgroundColor,
+  noBackground,
+  primary,
+  primaryGradient,
+  secondary,
   smallIcon,
   type = ButtonTypeEnum.BUTTON,
   useModelTheme,
@@ -456,6 +464,14 @@ function KeyboardShortcutButton({
     href: linkHref,
   } = linkProps || {};
   const ElToUse = (asHref || linkHref) ? AnchorStyle : ButtonStyle;
+  const hasSolidBackground = buttonHasSolidBackground({
+    background,
+    backgroundColor,
+    noBackground,
+    primary,
+    primaryGradient,
+    secondary,
+  });
 
   const keyTextsRender = useMemo(() => {
     if (!keyTextGroups) return null;
@@ -506,6 +522,8 @@ function KeyboardShortcutButton({
           <ElToUse
             {...props}
             {...(useModelTheme ? sharedProps : {})}
+            background={background}
+            backgroundColor={backgroundColor}
             bold={useModelTheme || bold}
             borderless={useModelTheme || borderless}
             center={centerText}
@@ -513,6 +531,10 @@ function KeyboardShortcutButton({
             disabled={disabled || mutedDisabled}
             fitContentWidth={fitContentWidth}
             inverted={inverted}
+            noBackground={noBackground}
+            primary={primary}
+            primaryGradient={primaryGradient}
+            secondary={secondary}
             noHover={(!onClick || noHover) && !(asHref || linkHref) && type === ButtonTypeEnum.BUTTON}
             onClick={(event) => {
               const updatedEventParameters = {
@@ -535,7 +557,11 @@ function KeyboardShortcutButton({
           >
             {beforeElement && !loading && (
               <>
-                {beforeElement}
+                {React.isValidElement(beforeElement)
+                  ? React.cloneElement(beforeElement, {
+                    ...(hasSolidBackground ? { fill: WHITE, stroke: WHITE } : {}),
+                  })
+                  : beforeElement}
                 <div style={{ marginRight: 4 }} />
               </>
             )}
@@ -545,8 +571,10 @@ function KeyboardShortcutButton({
             <Flex alignItems="center">
               {Icon && (
                 <Icon
+                  fill={hasSolidBackground ? WHITE : undefined}
                   muted={disabled || mutedDisabled}
                   size={smallIcon ? (UNIT * 2) : (UNIT * 2.5)}
+                  stroke={hasSolidBackground ? WHITE : undefined}
                 />
               )}
 
@@ -554,7 +582,7 @@ function KeyboardShortcutButton({
 
               {loading && (
                 <Spinner
-                  inverted={!inverted}
+                  inverted={hasSolidBackground || !inverted}
                   small={smallIcon}
                 />
               )}

@@ -18,6 +18,7 @@ import TextInput from '@oracle/elements/Inputs/TextInput';
 import ToggleSwitch from '@oracle/elements/Inputs/ToggleSwitch';
 import Tooltip from '@oracle/components/Tooltip';
 import api from '@api';
+import { BRAND_ACCENT } from '@oracle/styles/colors/main';
 import useProject from '@utils/models/project/useProject';
 import { ContainerStyle } from './index.style';
 import { Edit } from '@oracle/icons';
@@ -164,6 +165,7 @@ function Preferences({
               <Text default>
                 Please contribute usage statistics to help improve the developer experience
                 for you and everyone in the community. Learn more <Link
+                  color={BRAND_ACCENT}
                   href="https://docs.mage.ai/contributing/statistics/overview"
                   openNewWindow
                 >
@@ -247,6 +249,7 @@ function Preferences({
               Features&nbsp;
               <Link
                 bold
+                color={BRAND_ACCENT}
                 href="https://docs.mage.ai/development/project/features"
                 largeSm
                 openNewWindow

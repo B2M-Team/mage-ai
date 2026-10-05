@@ -5,17 +5,16 @@ import ErrorPopup from '@components/ErrorPopup';
 import ErrorsType from '@interfaces/ErrorsType';
 import Flex from '@oracle/components/Flex';
 import Head from '@oracle/elements/Head';
-import Header, { BreadcrumbType, MenuItemType } from '@components/shared/Header';
+import { BreadcrumbType, MenuItemType } from '@components/shared/Header';
 import HorizontalMainNavigation from './HorizontalMainNavigation';
 import Subheader from './Subheader';
 import TripleLayout from '@components/TripleLayout';
-import { VerticalNavigationProps } from './VerticalNavigation';
-import useProject from '@utils/models/project/useProject';
+import { NavigationItem, VerticalNavigationProps } from './VerticalNavigation';
 import {
   ContainerStyle,
-  MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT,
 } from './index.style';
 import { HEADER_HEIGHT } from '@components/shared/Header/index.style';
+import { ASIDE_HEADER_HEIGHT } from '@components/TripleLayout/index.style';
 import useTripleLayout, {
   DEFAULT_BEFORE_RESIZE_OFFSET,
 } from '@components/TripleLayout/useTripleLayout';
@@ -27,7 +26,9 @@ export type DashboardSharedProps = {
   afterWidth?: number;
   afterWidthOverride?: boolean;
   before?: any;
+  beforeNavigationItems?: NavigationItem[];
   beforeWidth?: number;
+  beforeWidthOverride?: boolean;
   setAfterHidden?: (value: boolean) => void;
   subheaderNoPadding?: boolean;
   uuid: string;
@@ -62,7 +63,9 @@ function Dashboard({
   appendBreadcrumbs,
   before,
   beforeHeader,
+  beforeNavigationItems,
   beforeWidth,
+  beforeWidthOverride,
   breadcrumbs: breadcrumbsProp,
   children,
   contained,
@@ -98,52 +101,21 @@ function Dashboard({
     widthAfter: afterWidth,
     widthBefore: beforeWidth,
     widthOverrideAfter: afterWidthOverride,
+    widthOverrideBefore: beforeWidthOverride,
   });
 
-  const {
-    project,
-  } = useProject();
-
-  const breadcrumbs = [];
-  if (breadcrumbsProp) {
-    // if (addProjectBreadcrumbToCustomBreadcrumbs) {
-    //   breadcrumbs.push(...breadcrumbProjects);
-    // }
-
-    breadcrumbs.push(...breadcrumbsProp);
-  }
-
-  if ((!breadcrumbsProp?.length || appendBreadcrumbs) && project) {
-    if (!breadcrumbsProp?.length) {
-      breadcrumbs.unshift({
-        bold: !appendBreadcrumbs,
-        label: () => title,
-      });
-    }
-  }
-
   const showMainNavTabs = navigationItems?.length !== 0;
-  const layoutTopOffset = HEADER_HEIGHT + (showMainNavTabs ? MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT : 0);
-  const tripleLayoutHeaderOffset =
-    (headerOffset ?? 0) + (showMainNavTabs ? MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT : 0);
+  const hasBeforeColumn = !!before || !!beforeNavigationItems?.length;
+  // Header/breadcrumb strip is gone. Cancel TripleLayout's built-in header offset
+  // so sidebars and the main column start together, and tabs sit in the content.
+  const layoutTopOffset = HEADER_HEIGHT;
+  const tripleLayoutHeaderOffset = (headerOffset ?? 0) - ASIDE_HEADER_HEIGHT;
 
   return (
     <>
       <Head title={title} />
 
-      <Header
-        breadcrumbs={breadcrumbs}
-        // excludeProject={!addProjectBreadcrumbToCustomBreadcrumbs}
-        menuItems={headerMenuItems}
-      />
-
-      {showMainNavTabs && (
-        <HorizontalMainNavigation
-          navigationItems={navigationItems}
-        />
-      )}
-
-      <ContainerStyle ref={ref} $withMainNavTabs={showMainNavTabs}>
+      <ContainerStyle ref={ref}>
         <Flex
           flex={1}
           flexDirection="column"
@@ -156,11 +128,13 @@ function Dashboard({
             afterHidden={afterHidden}
             afterMousedownActive={mousedownActiveAfter}
             afterWidth={widthAfter}
-            before={before}
+            before={before || (beforeNavigationItems?.length ? <></> : null)}
             beforeHeader={beforeHeader}
             beforeHeightOffset={layoutTopOffset}
             beforeMousedownActive={mousedownActiveBefore}
-            beforeWidth={before ? widthBefore : 0}
+            beforeNavigationItems={beforeNavigationItems}
+            beforeWidth={hasBeforeColumn ? widthBefore : 0}
+            navigationShowMore={!!beforeNavigationItems?.length}
             contained={contained}
             headerOffset={tripleLayoutHeaderOffset}
             hideAfterCompletely={!after || hideAfterCompletely}
@@ -171,8 +145,14 @@ function Dashboard({
             setAfterMousedownActive={setMousedownActiveAfter}
             setAfterWidth={setWidthAfter}
             setBeforeMousedownActive={setMousedownActiveBefore}
-            setBeforeWidth={setWidthBefore}
+            setBeforeWidth={beforeWidthOverride ? undefined : setWidthBefore}
           >
+            {showMainNavTabs && (
+              <HorizontalMainNavigation
+                navigationItems={navigationItems}
+              />
+            )}
+
             {subheaderChildren && (
               <Subheader noPadding={subheaderNoPadding}>
                 {subheaderChildren}

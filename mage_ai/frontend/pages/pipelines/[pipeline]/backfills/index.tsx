@@ -16,6 +16,7 @@ import Spacing from '@oracle/elements/Spacing';
 import Text from '@oracle/elements/Text';
 import api from '@api';
 import { Add } from '@oracle/icons';
+import { BRAND_ACCENT } from '@oracle/styles/colors/main';
 import { PADDING_UNITS, UNIT } from '@oracle/styles/units/spacing';
 import { PageNameEnum } from '@components/PipelineDetailPage/constants';
 import { onSuccess } from '@api/utils/response';
@@ -146,8 +147,8 @@ function PipelineBackfills({
     >
       <Spacing p={PADDING_UNITS}>
         <KeyboardShortcutButton
-          beforeElement={<Add size={2.5 * UNIT} />}
-          blackBorder
+          backgroundColor={BRAND_ACCENT}
+          beforeElement={<Add fill="#ffffff" size={2.5 * UNIT} />}
           inline
           loading={isLoading}
           noHoverUnderline
@@ -157,7 +158,6 @@ function PipelineBackfills({
               name: randomNameGenerator(),
             },
           })}
-          sameColorAsText
           uuid="PipelineDetailPage/Backfills/add_new_backfill"
         >
           Create new backfill

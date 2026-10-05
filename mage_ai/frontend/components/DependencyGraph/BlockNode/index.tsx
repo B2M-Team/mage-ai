@@ -171,16 +171,11 @@ function BlockNode({
       BlockTypeEnum.TRANSFORMER,
     ].includes(type)) {
       backgroundColor = accent;
+      inverted = true;
     } else if ([
       BlockTypeEnum.DBT,
     ].includes(type)) {
       borderColor = accent;
-    }
-
-    if ([
-      BlockTypeEnum.DATA_EXPORTER,
-    ].includes(type)) {
-      inverted = true;
     }
 
     return (

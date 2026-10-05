@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import InputWrapper, { InputWrapperProps, SHARED_INPUT_STYLES } from './InputWrapper';
 import dark from '@oracle/styles/themes/dark';
+import { BRAND_ACCENT } from '@oracle/styles/colors/main';
 import { pauseEvent as pauseEventFunc } from '@utils/events';
 
 const HEIGHT = 26;
@@ -49,7 +50,7 @@ const ToggleSwitchStyle = styled.label<
   & span {
     position: absolute;
     cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-    background-color: ${({ disabled }) => (disabled ? dark.monotone.white : dark.monotone.black)};
+    background-color: ${({ disabled }) => (disabled ? '#F4F4F5' : '#E4E4E7')};
     border-radius: 13px;
     ${({ disabled, compact }) => (disabled && !compact) && `border: 1px solid ${dark.monotone.grey200}`};
     top: 0;
@@ -66,7 +67,7 @@ const ToggleSwitchStyle = styled.label<
     top: ${({ compact }) => (compact ? '1' : '2')}px;
     width: ${({ compact }) => (compact ? '18' : '22')}px;
     height: ${({ compact }) => (compact ? '18' : '22')}px;
-    background-color: #787A85;
+    background-color: #FFFFFF;
     border-radius: 50%;
     transition: transform 0.3s ease;
   }
@@ -77,17 +78,17 @@ const ToggleSwitchStyle = styled.label<
 
   ${props => !props.disabled && !props.monotone && `
     & input[type="checkbox"]:checked + span {
-      background-color: ${dark.accent.sky};
+      background-color: ${BRAND_ACCENT};
     }
 
     & input[type="checkbox"]:checked + span::before {
-      background-color: ${dark.monotone.white};
+      background-color: #FFFFFF;
     }
   `}
 
   ${({ purpleBackground }) => purpleBackground && `
     & input[type="checkbox"]:checked + span {
-      background-color: ${dark.interactive.purple};
+      background-color: ${BRAND_ACCENT};
     }
   `}
 `;

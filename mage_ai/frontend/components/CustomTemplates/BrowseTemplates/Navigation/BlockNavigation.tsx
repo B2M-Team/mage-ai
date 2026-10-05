@@ -1,6 +1,3 @@
-import { useContext } from 'react';
-import { ThemeContext } from 'styled-components';
-
 import FlexContainer from '@oracle/components/FlexContainer';
 import Text from '@oracle/elements/Text';
 import { BlocksStacked } from '@oracle/icons';
@@ -24,8 +21,6 @@ function BlockNavigation({
   selectedLink,
   setSelectedLink,
 }: BlockNavigationProps) {
-  const themeContext = useContext(ThemeContext);
-
   return (
     <>
       {navLinks.map((navLink: NavLinkType) => {
@@ -33,14 +28,12 @@ function BlockNavigation({
           Icon,
           description,
           label,
-          selectedBackgroundColor,
-          selectedIconProps,
           uuid,
         } = navLink;
         const isSelected = selectedLink?.uuid === uuid;
         const IconProps = {
+          fill: '#18181B',
           size: ICON_SIZE,
-          ...(isSelected && selectedIconProps ? selectedIconProps : {}),
         };
 
         return (
@@ -51,18 +44,13 @@ function BlockNavigation({
           >
             <FlexContainer alignItems="center">
               {Icon && (
-                <IconStyle
-                  backgroundColor={isSelected && selectedBackgroundColor
-                    ? selectedBackgroundColor(themeContext)
-                    : null
-                  }
-                >
+                <IconStyle>
                   <Icon {...IconProps} />
                 </IconStyle>
               )}
 
               <FlexContainer alignItems="flex-start" flexDirection="column" justifyContent="center">
-                <Text bold large>
+                <Text color="#3F3F46">
                   {label ? label() : uuid}
                 </Text>
 

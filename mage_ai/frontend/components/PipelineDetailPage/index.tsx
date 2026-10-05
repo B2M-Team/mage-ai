@@ -11,6 +11,7 @@ import Headline from '@oracle/elements/Headline';
 import PipelineType from '@interfaces/PipelineType';
 import Spacing from '@oracle/elements/Spacing';
 import api from '@api';
+import { VERTICAL_NAVIGATION_WIDTH } from '@components/Dashboard/index.style';
 import { BannerStyle } from './index.style';
 import { BreadcrumbType } from '@components/shared/Header';
 import { HEADER_HEIGHT } from '@components/shared/Header/index.style';
@@ -151,6 +152,9 @@ function PipelineDetailPage(
     return arr;
   }, [breadcrumbsProp, data?.error, pipeline, pipelineUUID]);
 
+  const pipelineNavItems = buildNavigationItems(pageName, pipeline, pipelineUUIDFromUrl);
+  const sideNavOnly = !before;
+
   return (
     <>
       <Dashboard
@@ -158,9 +162,12 @@ function PipelineDetailPage(
         afterHidden={afterHidden}
         afterWidth={afterWidth}
         before={before}
-        beforeWidth={beforeWidth}
+        beforeNavigationItems={pipelineNavItems}
+        beforeWidth={sideNavOnly
+          ? VERTICAL_NAVIGATION_WIDTH
+          : VERTICAL_NAVIGATION_WIDTH + (beforeWidth || (20 * UNIT))}
+        beforeWidthOverride={sideNavOnly}
         breadcrumbs={breadcrumbs}
-        navigationItems={buildNavigationItems(pageName, pipeline, pipelineUUIDFromUrl)}
         ref={ref}
         subheaderChildren={typeof subheader !== 'undefined' && subheader}
         subheaderNoPadding={subheaderNoPadding}

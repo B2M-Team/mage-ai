@@ -378,7 +378,7 @@ function CommandButtons({
                   size={UNIT * 3}
                 >
                   <PlayButtonFilled
-                    black
+                    fill="#FFFFFF"
                     size={UNIT * 1.5}
                   />
                 </Circle>

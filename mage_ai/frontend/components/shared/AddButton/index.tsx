@@ -1,7 +1,7 @@
 import FlyoutMenuWrapper from '@oracle/components/FlyoutMenu/FlyoutMenuWrapper';
 import KeyboardShortcutButton from '@oracle/elements/Button/KeyboardShortcutButton';
 import { Add } from '@oracle/icons';
-import { BUTTON_GRADIENT } from '@oracle/styles/colors/gradients';
+import { BRAND_ACCENT } from '@oracle/styles/colors/main';
 import { FlyoutMenuItemType } from '@oracle/components/FlyoutMenu';
 import { UNIT } from '@oracle/styles/units/spacing';
 
@@ -34,7 +34,7 @@ function AddButton({
   onClick,
   onClickCallback,
 }: AddButtonProps) {
-  const solid = !!backgroundColor;
+  const solidColor = backgroundColor || BRAND_ACCENT;
 
   return (
     <FlyoutMenuWrapper
@@ -50,22 +50,16 @@ function AddButton({
     >
       <KeyboardShortcutButton
         {...SHARED_BUTTON_PROPS}
-        {...(solid
-          ? {
-            backgroundColor,
-            greyBorder: false,
-            noHover: true,
-            style: {
-              color: '#fff',
-            },
-          }
-          : {
-            background: BUTTON_GRADIENT,
-          })}
+        backgroundColor={solidColor}
+        greyBorder={false}
+        noHover
+        style={{
+          color: '#fff',
+        }}
         beforeElement={
           <Add
+            fill="#ffffff"
             size={2.5 * UNIT}
-            {...(solid ? { fill: '#ffffff' } : {})}
           />
         }
         loading={isLoading}

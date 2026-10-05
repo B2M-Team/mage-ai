@@ -22,6 +22,7 @@ import Text from '@oracle/elements/Text';
 import ToggleSwitch from '@oracle/elements/Inputs/ToggleSwitch';
 import Tooltip from '@oracle/components/Tooltip';
 import api from '@api';
+import { BRAND_ACCENT } from '@oracle/styles/colors/main';
 import useProject from '@utils/models/project/useProject';
 import useStatus from '@utils/models/status/useStatus';
 import {
@@ -432,6 +433,7 @@ function TriggersTable({
                     >
                       <Link
                         bold
+                        color={BRAND_ACCENT}
                         onClick={(e) => {
                           pauseEvent(e);
                           router.push(
@@ -439,7 +441,6 @@ function TriggersTable({
                             `/pipelines/${finalPipelineUUID}/triggers/${id}`,
                           );
                         }}
-                        sky
                       >
                         {name}
                       </Link>

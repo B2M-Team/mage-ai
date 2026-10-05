@@ -1,6 +1,5 @@
 import {
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -8,7 +7,6 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { MutateFunction, useMutation } from 'react-query';
-import { ThemeContext } from 'styled-components';
 import { useRouter } from 'next/router';
 
 import BlockNavigation from './Navigation/BlockNavigation';
@@ -193,7 +191,6 @@ function BrowseTemplates({
   tabs: tabsProp,
 }: BrowseTemplatesProps) {
   const router = useRouter();
-  const themeContext = useContext(ThemeContext);
   const { height, width } = useWindowSize();
 
   const tabs = useMemo(() => tabsProp || NAV_TABS, [tabsProp]);
@@ -371,14 +368,12 @@ function BrowseTemplates({
     const {
       Icon,
       label,
-      selectedBackgroundColor,
-      selectedIconProps,
       uuid,
     } = navLink;
     const isSelected = selectedLink?.uuid === uuid;
     const IconProps = {
+      fill: '#18181B',
       size: ICON_SIZE,
-      ...(isSelected && selectedIconProps ? selectedIconProps : {}),
     };
 
     return (
@@ -388,16 +383,11 @@ function BrowseTemplates({
         selected={isSelected}
       >
         <FlexContainer alignItems="center">
-          <IconStyle
-            backgroundColor={isSelected && selectedBackgroundColor
-              ? selectedBackgroundColor(themeContext)
-              : null
-            }
-          >
+          <IconStyle>
             {Icon ? <Icon {...IconProps} /> : <BlocksStacked {...IconProps} />}
           </IconStyle>
 
-          <Text bold large>
+          <Text color="#3F3F46">
             {label ? label() : uuid}
           </Text>
         </FlexContainer>
@@ -405,7 +395,6 @@ function BrowseTemplates({
     );
   }), [
     selectedLink,
-    themeContext,
   ]);
 
   const cardsBlocks = useMemo(() => customTemplates?.map((customTemplate: CustomTemplateType) => {

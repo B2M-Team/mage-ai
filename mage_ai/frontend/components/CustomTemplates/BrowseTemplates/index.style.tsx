@@ -95,11 +95,12 @@ export const NavLinkStyle = styled.div<{
   padding-top: ${1 * UNIT}px;
 
   &:hover {
+    background-color: #F3F4F6;
     cursor: pointer;
   }
 
   ${props => props.selected && `
-    background-color: ${(props.theme.background || dark.background).codeTextarea};
+    background-color: #F3F4F6;
   `}
 `;
 

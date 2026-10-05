@@ -30,7 +30,8 @@ import { PURPLE_BLUE } from '@oracle/styles/colors/gradients';
 import { PADDING_UNITS, UNIT } from '@oracle/styles/units/spacing';
 import Link from '@oracle/elements/Link';
 
-const ICON_SIZE = 3 * UNIT;
+const ICON_SIZE = 20;
+const SIDEBAR_ICON_COLOR = '#3F3F46';
 
 /**
  * Turns grouped dashboard nav (main + misc) or a flat list into tab bar entries.
@@ -202,7 +203,7 @@ function VerticalNavigation({
 
     const sharedNavigationItemProps = {
       primary: !IconToUse,
-      selected: showMore && selected,
+      selected: showMore && selected && !visible,
       showMore,
       withGradient: IconSelected,
     };
@@ -215,14 +216,14 @@ function VerticalNavigation({
             width: ICON_SIZE,
           }}
         >
-          <IconToUse muted size={ICON_SIZE} />
+          <IconToUse fill={SIDEBAR_ICON_COLOR} size={ICON_SIZE} />
         </div>
       );
 
       if (showMore || visible) {
         iconEl = (
           <NavigationItemStyle {...sharedNavigationItemProps}>
-            <IconToUse muted size={ICON_SIZE} />
+            <IconToUse fill={SIDEBAR_ICON_COLOR} size={ICON_SIZE} />
           </NavigationItemStyle>
         );
       }
@@ -250,10 +251,10 @@ function VerticalNavigation({
         <NavigationItemStyle {...sharedNavigationItemProps}>
           {IconToUse
             ? <IconToUse
-              muted={!selected}
+              fill={SIDEBAR_ICON_COLOR}
               size={ICON_SIZE}
             />
-            : <Text>Edit</Text>
+            : <Text color={SIDEBAR_ICON_COLOR}>Edit</Text>
           }
         </NavigationItemStyle>
       );
@@ -263,10 +264,10 @@ function VerticalNavigation({
           disabled={disabled}
           inline
           linkProps={linkProps}
+          noBackground
           noHoverUnderline
           noPadding
           onClick={onClick}
-          primary={selected}
           sameColorAsText
           uuid={`VerticalNavigation/${id}`}
         >
@@ -288,7 +289,7 @@ function VerticalNavigation({
           justifyContent="flex-end"
         >
           <Flex flex={1} justifyContent="flex-end">
-            <Text noWrapping>
+            <Text color={SIDEBAR_ICON_COLOR} noWrapping>
               {displayText}
             </Text>
           </Flex>
@@ -302,7 +303,7 @@ function VerticalNavigation({
           {iconEl}
           <Spacing mr={2} />
           <Flex flex={1} alignItems="center" style={{ gap: 8 }}>
-            <Text noWrapping>
+            <Text color={SIDEBAR_ICON_COLOR} noWrapping>
               {displayText}
             </Text>
 

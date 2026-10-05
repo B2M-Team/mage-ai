@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import NextLink from 'next/link';
 import moment from 'moment';
-import styled from 'styled-components';
 
 import BarStackChart from '@components/charts/BarStack';
 import ErrorsType from '@interfaces/ErrorsType';
@@ -22,18 +21,11 @@ import {
 } from '@components/Monitor/constants';
 import { ChevronRight } from '@oracle/icons';
 import { SCHEDULE_TYPE_TO_LABEL } from '@interfaces/PipelineScheduleType';
+import { BRAND_ACCENT } from '@oracle/styles/colors/main';
 import { UNIT } from '@oracle/styles/units/spacing';
 import { capitalize } from '@utils/string';
 import { getAllPipelineRunData } from '@components/PipelineRun/shared/utils';
 import { getDateRange } from '@utils/date';
-
-const GradientTextStyle = styled.div<any>`
-  background: linear-gradient(90deg, #7D55EC 28.12%, #2AB2FE 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
-`;
 
 type PipelineRunsMonitorProps = {
   pipeline: PipelineType;
@@ -133,11 +125,9 @@ function PipelineRunsMonitor({
     >
       <Spacing mt={2} mx={2}>
         <Spacing ml={1}>
-          <GradientTextStyle>
-            <Headline>
-              All pipeline runs
-            </Headline>
-          </GradientTextStyle>
+          <Headline color={BRAND_ACCENT}>
+            All pipeline runs
+          </Headline>
         </Spacing>
         <Spacing mt={1}>
           <BarStackChart
@@ -162,24 +152,22 @@ function PipelineRunsMonitor({
             <Spacing key={id} mt={3}>
               <FlexContainer alignItems="center">
                 <Spacing mx={1}>
-                  <GradientTextStyle>
-                    <Text bold large>
-                      {capitalize(SCHEDULE_TYPE_TO_LABEL[pipelineSchedule?.schedule_type]?.())}
-                    </Text>
-                  </GradientTextStyle>
+                  <Text bold color={BRAND_ACCENT} large>
+                    {capitalize(SCHEDULE_TYPE_TO_LABEL[pipelineSchedule?.schedule_type]?.())}
+                  </Text>
                 </Spacing>
                 <NextLink
                   as={`/pipelines/${pipelineUUID}/triggers/${pipelineSchedule?.id}`}
                   href="/pipelines/[pipeline]/triggers/[...slug]"
                   passHref
                 >
-                  <Link>
+                  <Link color={BRAND_ACCENT}>
                     <FlexContainer alignItems="center">
-                      <Headline level={5}>
+                      <Headline color={BRAND_ACCENT} level={5}>
                         {pipelineSchedule?.name || id}
                       </Headline>
                       <Spacing ml={1} />
-                      <ChevronRight default size={2 * UNIT} />
+                      <ChevronRight fill={BRAND_ACCENT} size={2 * UNIT} />
                     </FlexContainer>
                   </Link>
                 </NextLink>

@@ -13,6 +13,7 @@ import Text from '@oracle/elements/Text';
 import api from '@api';
 import useDeleteConfirmDialogue from '@components/shared/Table/useDeleteConfirmDialogue';
 import { Edit } from '@oracle/icons';
+import { BRAND_ACCENT } from '@oracle/styles/colors/main';
 import { RunStatus } from '@interfaces/PipelineRunType';
 import {
   TIMEZONE_TOOLTIP_PROPS,
@@ -147,7 +148,7 @@ function BackfillsTable({
             key={`name_${idx}`}
             passHref
           >
-            <Link bold sameColorAsText>
+            <Link bold color={BRAND_ACCENT}>
               {name}
             </Link>
           </NextLink>,

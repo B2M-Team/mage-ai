@@ -1471,8 +1471,6 @@ function PipelineListPage() {
     return (
       <Spacing p={PADDING_UNITS}>
         <Paginate
-          activePageBackgroundColor={DASHBOARD_BRAND_ACCENT}
-          activePageTextColor="#ffffff"
           maxPages={MAX_PAGES}
           onUpdate={(p) => {
             const newPage = Number(p);

@@ -37,6 +37,7 @@ import TagsContainer from '@components/Tags/TagsContainer';
 import Text from '@oracle/elements/Text';
 import Tooltip from '@oracle/components/Tooltip';
 import api from '@api';
+import { BRAND_ACCENT } from '@oracle/styles/colors/main';
 import buildTableSidekick, { TABS } from '@components/PipelineRun/shared/buildTableSidekick';
 import useProject from '@utils/models/project/useProject';
 import { BEFORE_WIDTH, BeforeStyle } from '@components/PipelineDetail/shared/index.style';
@@ -335,14 +336,16 @@ function TriggerDetail({
             Status
           </Text>
         </FlexContainer>,
-        <Text
+        <Button
+          borderLess
           danger={!isActive}
           key="trigger_status"
-          monospace
+          notClickable
+          padding="4px 10px"
           success={isActive}
         >
           {status}
-        </Text>,
+        </Button>,
       ],
     ];
 
@@ -1021,13 +1024,13 @@ function TriggerDetail({
                       href={'/pipelines/[pipeline]/settings'}
                       passHref
                     >
-                      <Link openNewWindow>pipeline’s settings</Link>
+                      <Link color={BRAND_ACCENT} openNewWindow>pipeline’s settings</Link>
                     </NextLink> or <NextLink
                       as="/settings/workspace/preferences"
                       href="/settings/workspace/preferences"
                       passHref
                     >
-                      <Link openNewWindow>project settings</Link>
+                      <Link color={BRAND_ACCENT} openNewWindow>project settings</Link>
                     </NextLink>.
                   </Text>
                 )}
@@ -1036,6 +1039,7 @@ function TriggerDetail({
                     Save or update the trigger and its settings in the
                     pipeline’s metadata and version control the trigger using Git.
                     For more information, please read the <Link
+                      color={BRAND_ACCENT}
                       href="https://docs.mage.ai/guides/triggers/configure-triggers-in-code"
                       openNewWindow
                     >
@@ -1122,7 +1126,6 @@ function TriggerDetail({
                   : ScheduleStatusEnum.ACTIVE,
               });
             }}
-            outline
             success={!isActive && !isViewerRole}
           >
             {isActive

@@ -1,13 +1,12 @@
 import React, {
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 
 import ClickOutside from '@oracle/components/ClickOutside';
 import ErrorPopup from '@components/ErrorPopup';
 import Head from '@oracle/elements/Head';
-import Header, { BreadcrumbType } from '@components/shared/Header';
+import HorizontalMainNavigation from '@components/Dashboard/HorizontalMainNavigation';
 import PipelineType from '@interfaces/PipelineType';
 import TripleLayout from '@components/TripleLayout';
 import {
@@ -23,8 +22,6 @@ import {
   set,
 } from '@storage/localStorage';
 import { NavigationItem } from '@components/Dashboard/VerticalNavigation';
-import { PAGE_NAME_EDIT } from '@components/PipelineDetail/constants';
-import { capitalize } from '@utils/string';
 import { useWindowSize } from '@utils/sizes';
 
 type PipelineLayoutProps = {
@@ -152,48 +149,20 @@ function PipelineLayout({
     beforeWidth,
   ]);
 
-  const headerMemo = useMemo(() => {
-    const breadcrumbs: BreadcrumbType[] = [
-      {
-        label: () => 'Pipelines',
-        linkProps: {
-          as: '/pipelines',
-          href: '/pipelines',
-        },
-      },
-    ];
+  // Tab row is 62px. The editor header offset already reserves 96px for a 48px
+  // file header, so the tabs need 14px more to sit flush above that header.
+  const mainNavHeaderOffset = mainContainerHeader ? 14 : 0;
 
-    if (pipeline) {
-      breadcrumbs.push(...[
-        {
-          bold: PAGE_NAME_EDIT !== page,
-          label: () => pipeline?.uuid,
-          linkProps: {
-            as: `/pipelines/${pipeline?.uuid}`,
-            href: '/pipelines/[pipeline]',
-          },
-        },
-      ]);
-
-      if (PAGE_NAME_EDIT === page) {
-        breadcrumbs.push(...[
-          {
-            bold: true,
-            label: () => capitalize(page),
-          },
-        ]);
-      }
-    }
-
-    return (
-      <Header
-        breadcrumbs={breadcrumbs}
-      />
-    );
-  }, [
-    page,
-    pipeline,
-  ]);
+  const headerWithMainNav = mainContainerHeader
+    ? (opts) => (
+      <>
+        <HorizontalMainNavigation />
+        {typeof mainContainerHeader === 'function'
+          ? mainContainerHeader(opts)
+          : mainContainerHeader}
+      </>
+    )
+    : null;
 
   return (
     <>
@@ -220,10 +189,9 @@ function PipelineLayout({
         beforeNavigationItems={beforeNavigationItems}
         beforeWidth={beforeWidth}
         footerOffset={footerOffset}
-        header={headerMemo}
-        headerOffset={headerOffset}
+        headerOffset={(headerOffset || 0) + mainNavHeaderOffset}
         mainContainerFooter={mainContainerFooter}
-        mainContainerHeader={mainContainerHeader}
+        mainContainerHeader={headerWithMainNav || mainContainerHeader}
         mainContainerRef={mainContainerRef}
         navigationShowMore
         setAfterHidden={setAfterHidden}
@@ -234,6 +202,9 @@ function PipelineLayout({
         setBeforeWidth={setBeforeWidth}
         subtractTopFromBeforeDraggableHeight
       >
+        {!mainContainerHeader && (
+          <HorizontalMainNavigation />
+        )}
         {children}
       </TripleLayout>
 

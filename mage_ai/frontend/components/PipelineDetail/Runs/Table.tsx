@@ -19,6 +19,7 @@ import TagsContainer from '@components/Tags/TagsContainer';
 import Text from '@oracle/elements/Text';
 import api from '@api';
 import dark from '@oracle/styles/themes/dark';
+import { BRAND_ACCENT } from '@oracle/styles/colors/main';
 import { BORDER_RADIUS_XXXLARGE } from '@oracle/styles/units/borders';
 import { Check, ChevronRight, Logs, PlayButtonFilled, Subitem, Trash } from '@oracle/icons';
 import {
@@ -153,10 +154,12 @@ function RetryButton({
           RunStatus.INITIAL !== status &&
           !disabled && (
             <>
-              {RunStatus.COMPLETED === status && <Check size={ICON_SIZE_SMALL} />}
+              {RunStatus.COMPLETED === status && (
+                <Check inverted size={ICON_SIZE_SMALL} />
+              )}
               {[RunStatus.FAILED, RunStatus.CANCELLED].includes(status) && (
                 <PlayButtonFilled
-                  inverted={RunStatus.CANCELLED === status && !isViewerRole}
+                  inverted={!isViewerRole}
                   size={ICON_SIZE_SMALL}
                 />
               )}
@@ -175,6 +178,7 @@ function RetryButton({
         disabled={disabled || isViewerRole}
         loading={!pipelineRun}
         notClickable={disableClick}
+        success={RunStatus.COMPLETED === status && !isViewerRole}
         onClick={e => {
           // Stop table row from being highlighted as well
           e.stopPropagation();
@@ -197,7 +201,7 @@ function RetryButton({
         <PopupContainerStyle>
           {[RunStatus.RUNNING, RunStatus.INITIAL].includes(status) && (
             <>
-              <Text bold color="#9ECBFF">
+              <Text bold color={BRAND_ACCENT}>
                 Run is in progress
               </Text>
               <Spacing mb={1} />
@@ -225,7 +229,7 @@ function RetryButton({
           )}
           {[RunStatus.CANCELLED, RunStatus.FAILED, RunStatus.COMPLETED].includes(status) && (
             <>
-              <Text bold color="#9ECBFF">
+              <Text bold color={BRAND_ACCENT}>
                 Run {status}
               </Text>
               <Spacing mb={1} />
@@ -737,8 +741,8 @@ function PipelineRunsTable({
                     block
                     bold
                     centerAlign
+                    color={BRAND_ACCENT}
                     disabled={disabled || workspaceFormatting}
-                    sky
                     title={blockRunCountTooltipMessage}
                   >
                     {disabled ? '' : `${completedBlockRunsCount} / ${blockRunsCount}`}
@@ -772,8 +776,8 @@ function PipelineRunsTable({
                   >
                     <Link
                       bold
+                      color={BRAND_ACCENT}
                       disabled={workspaceFormatting}
-                      sky
                     >
                       {pipelineScheduleName}
                     </Link>

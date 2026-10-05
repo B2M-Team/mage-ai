@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import AuthToken from '@api/utils/AuthToken';
-import Breadcrumbs, { BreadcrumbType as BreadcrumbTypeOrig } from '@components/Breadcrumbs';
+import { BreadcrumbType as BreadcrumbTypeOrig } from '@components/Breadcrumbs';
 import Button from '@oracle/elements/Button';
 import ClickOutside from '@oracle/components/ClickOutside';
 import ClientOnly from '@hocs/ClientOnly';
@@ -45,7 +45,6 @@ export type MenuItemType = {
 };
 
 export type HeaderProps = {
-  breadcrumbs?: BreadcrumbType[];
   hideActions?: boolean;
   menuItems?: MenuItemType[];
   project?: ProjectType;
@@ -53,7 +52,6 @@ export type HeaderProps = {
 };
 
 function Header({
-  breadcrumbs: breadcrumbsProp,
   hideActions,
   menuItems,
   project: projectProp,
@@ -151,68 +149,6 @@ function Header({
     updateProject,
   ]);
 
-  const breadcrumbProjects = [];
-  if (rootProject) {
-    breadcrumbProjects.push({
-      label: () => rootProject?.name,
-      linkProps: {
-        href: '/',
-      },
-    });
-  }
-
-  if (project) {
-    const crumb: BreadcrumbType = {
-      label: () => project?.name,
-    };
-
-    if (rootProject) {
-      crumb.loading = isLoadingUpdate && !enableCommandCenterLoading;
-      crumb.options = Object.keys(rootProject?.projects || {}).map((projectName: string) => ({
-        onClick: () => {
-          updateProject({
-            activate_project: projectName,
-          }).then((response) => {
-            if (response?.data?.error) {
-              showError({
-                errors: response?.data?.error,
-                response,
-              });
-            } else {
-              const displayLocalTimeUpdated: boolean = !!response?.data?.project?.features?.display_local_timezone;
-              storeLocalTimezoneSetting(displayLocalTimeUpdated);
-              if (typeof window !== 'undefined') {
-                window.location.reload();
-              }
-            }
-          });
-        },
-        selected: projectName === project?.name,
-        uuid: projectName,
-      }));
-    } else {
-      crumb.linkProps = {
-        href: '/',
-      };
-    }
-
-    breadcrumbProjects.push(crumb);
-  } else if (!isLoadingProject && !hideActions) {
-    breadcrumbProjects.push({
-      bold: true,
-      danger: true,
-      label: () => 'Error loading project configuration',
-    });
-  }
-
-  const breadcrumbs = useMemo(() => [
-    ...breadcrumbProjects,
-    ...(breadcrumbsProp || []),
-  ], [
-    breadcrumbProjects,
-    breadcrumbsProp,
-    project,
-  ]);
   const { pipeline: pipelineUUID } = router.query;
 
   const { latest_version: latestVersion } = project || {};
@@ -268,20 +204,25 @@ function Header({
     };
   }, []);
 
+  const showUpdateButton = latestVersion && version && latestVersion !== version;
+  const showHeader = Boolean(
+    menuItems
+    || (gitIntegrationEnabled && branch)
+    || showUpdateButton,
+  );
+
+  if (!showHeader) {
+    return null;
+  }
+
   return (
     <HeaderStyle>
       <ClientOnly>
         <FlexContainer
           alignItems="center"
           fullHeight
-          justifyContent="space-between"
+          justifyContent="flex-end"
         >
-          <Flex alignItems="center">
-            <Breadcrumbs
-              breadcrumbs={breadcrumbs}
-            />
-          </Flex>
-
           <Flex alignItems="center">
             {gitIntegrationEnabled && branch && (
               <Spacing mr={1}>
@@ -306,7 +247,7 @@ function Header({
               </Spacing>
             )}
 
-            {latestVersion && version && latestVersion !== version && (
+            {showUpdateButton && (
               <Button
                 backgroundColor={YELLOW}
                 borderLess

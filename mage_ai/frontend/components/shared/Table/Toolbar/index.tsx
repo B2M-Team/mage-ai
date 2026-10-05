@@ -220,6 +220,7 @@ function Toolbar({
       disabled={secondaryButtonDisabled}
       greyBorder
       loading={isLoadingSecondaryButton}
+      noBackground
       onClick={onClickSecondaryButton}
       outline
       paddingBottom={9}
@@ -266,6 +267,7 @@ function Toolbar({
     >
       <KeyboardShortcutButton
         {...SHARED_BUTTON_PROPS}
+        noBackground
         afterElement={filtersAppliedCount > 0
           ?
             <Badge cyan noVerticalPadding>
@@ -313,6 +315,7 @@ function Toolbar({
     >
       <KeyboardShortcutButton
         {...SHARED_BUTTON_PROPS}
+        noBackground
         beforeElement={<Group size={2.5 * UNIT} />}
         onClick={() => {
           setGroupButtonMenuOpen(prevOpenState => !prevOpenState);
@@ -350,6 +353,7 @@ function Toolbar({
           bold
           disabled={disabledActions}
           greyBorder
+          noBackground
           onClick={() => setMoreActionsMenuOpen(prevState => !prevState)}
           smallIcon
           uuid="Table/Toolbar/MoreActionsButton"

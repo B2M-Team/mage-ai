@@ -25,7 +25,6 @@ export const MetricsSummaryContainerStyle = styled.div`
 
   ${props => `
     border: ${BORDER_WIDTH}px ${BORDER_STYLE} ${(props.theme || dark).interactive.defaultBorder};
-    box-shadow: ${(props.theme || dark).shadow.frame};
   `}
 
 `;

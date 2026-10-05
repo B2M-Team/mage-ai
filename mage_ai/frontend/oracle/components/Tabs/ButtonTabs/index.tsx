@@ -5,7 +5,7 @@ import FlexContainer from '@oracle/components/FlexContainer';
 import GradientButton from '@oracle/elements/Button/GradientButton';
 import Spacing from '@oracle/elements/Spacing';
 import Text from '@oracle/elements/Text';
-import { PURPLE_BLUE } from '@oracle/styles/colors/gradients';
+import { BRAND_ACCENT } from '@oracle/styles/colors/main';
 import { SelectedUnderlineStyle, TabsContainerStyle, UNDERLINE_HEIGHT } from './index.style';
 import { UNIT } from '@oracle/styles/units/spacing';
 import { pauseEvent } from '@utils/events';
@@ -48,7 +48,7 @@ function ButtonTabs({
   noPadding,
   onClickTab,
   regularSizeText,
-  selectedTabBorderGradient = PURPLE_BLUE,
+  selectedTabBorderGradient = BRAND_ACCENT,
   selectedTabUUID,
   selectedTabUUIDs,
   showScrollbar,
