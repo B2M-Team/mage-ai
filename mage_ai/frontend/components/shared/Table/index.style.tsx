@@ -206,7 +206,8 @@ export const TableDataStyle = styled.td<SHARED_TABLE_PROPS & {
   `}
 
   ${props => props.selected && `
-    background-color: ${(props.theme.interactive || dark.interactive).activeBorder};
+    background-color: ${(props.theme.interactive || dark.interactive).rowSelectedBackground
+      || (props.theme.interactive || dark.interactive).activeOverlay};
   `}
 
   ${props => props.wrapColumns && `

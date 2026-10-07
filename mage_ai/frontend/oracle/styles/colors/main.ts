@@ -1,4 +1,8 @@
 export const BLACK = '#060606';
+/** B2Metric primary accent — solid buttons, toggles, active pagination, selected tabs. */
+export const BRAND_ACCENT = '#5951ff';
+export const BRAND_ACCENT_HOVER = '#4840e6';
+export const BRAND_ACCENT_LIGHT = 'rgba(89, 81, 255, 0.12)';
 export const BLUE = '#2A60FE';
 export const BLUE_TRANSPARENT = 'rgba(72, 119, 255, 0.5)';
 export const BLUE_DARK = '#4877FF';

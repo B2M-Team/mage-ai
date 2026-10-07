@@ -25,7 +25,6 @@ import {
   PIPELINE_TYPE_LABEL_MAPPING,
   PipelineTypeEnum,
 } from '@interfaces/PipelineType';
-import { getColorsForBlockType } from '@components/CodeBlock/index.style';
 
 export const NAV_TAB_BLOCKS = {
   uuid: 'Blocks',
@@ -47,10 +46,6 @@ export type NavLinkType = {
     [key: string]: any;
   }) => string | any;
   filterTemplates?: (customTemplates: CustomTemplateType) => CustomTemplateType[];
-  selectedBackgroundColor?: (theme: any) => string;
-  selectedIconProps?: {
-    [key: string]: string;
-  };
   uuid: string | BlockTypeEnum;
 };
 
@@ -82,49 +77,15 @@ export const NAV_LINKS: NavLinkType[] = [
     uuid: BlockTypeEnum.TRANSFORMER,
   },
   { uuid: BlockTypeEnum.MODEL_MAKER },
-  {
-    selectedIconProps: {
-      inverted: true,
-    },
-    uuid: BlockTypeEnum.DATA_EXPORTER,
-  },
-  {
-    uuid: BlockTypeEnum.SENSOR,
-  },
-  {
-    selectedIconProps: {
-      inverted: true,
-    },
-    uuid: BlockTypeEnum.CUSTOM,
-  },
-  {
-    uuid: BlockTypeEnum.CHART,
-  },
-  {
-    selectedIconProps: {
-      inverted: true,
-    },
-    uuid: BlockTypeEnum.CALLBACK,
-  },
-  {
-    selectedIconProps: {
-      inverted: true,
-    },
-    uuid: BlockTypeEnum.CONDITIONAL,
-  },
-  {
-    uuid: BlockTypeEnum.EXTENSION,
-  },
-  {
-    selectedBackgroundColor: null,
-    uuid: BlockTypeEnum.DBT,
-  },
-  {
-    selectedIconProps: {
-      inverted: true,
-    },
-    uuid: BlockTypeEnum.MARKDOWN,
-  },
+  { uuid: BlockTypeEnum.DATA_EXPORTER },
+  { uuid: BlockTypeEnum.SENSOR },
+  { uuid: BlockTypeEnum.CUSTOM },
+  { uuid: BlockTypeEnum.CHART },
+  { uuid: BlockTypeEnum.CALLBACK },
+  { uuid: BlockTypeEnum.CONDITIONAL },
+  { uuid: BlockTypeEnum.EXTENSION },
+  { uuid: BlockTypeEnum.DBT },
+  { uuid: BlockTypeEnum.MARKDOWN },
 ].map(({
   uuid,
   ...rest
@@ -134,9 +95,6 @@ export const NAV_LINKS: NavLinkType[] = [
     block_type: blockType,
   }) => blockType === uuid),
   label: () => BLOCK_TYPE_NAME_MAPPING[uuid],
-  selectedBackgroundColor: theme => getColorsForBlockType(uuid, {
-      theme,
-  }).accent,
   uuid,
   ...rest,
 })));

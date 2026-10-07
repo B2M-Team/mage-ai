@@ -118,9 +118,9 @@ body {
   background-color: #FFFFFF;
   color: #18181B;
   font-family: 'Apercu', sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 1.44;
+  line-height: 20px;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -222,6 +222,7 @@ audio:not([controls]) {
  */
 
 html {
+  background-color: #FFFFFF;
   font-size: 100%;
   /* 1 */
   -webkit-text-size-adjust: 100%;
@@ -481,16 +482,6 @@ input,
 select,
 textarea {
   color: #18181B;
-}
-
-::-moz-selection {
-  background: #b3d4fc;
-  text-shadow: none;
-}
-
-::selection {
-  background: rgba(56, 107, 233, 0.25);
-  text-shadow: none;
 }
 
 img {

@@ -1840,7 +1840,7 @@ function CodeBlock(
                     }
                   >
                     <Circle color={color} size={UNIT * 3}>
-                      <PlayButtonFilled black size={UNIT * 1.5} />
+                      <PlayButtonFilled fill="#FFFFFF" size={UNIT * 1.5} />
                     </Circle>
                   </Button>
                 )}

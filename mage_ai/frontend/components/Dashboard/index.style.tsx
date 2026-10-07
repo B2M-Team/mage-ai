@@ -20,12 +20,13 @@ export const MAIN_NAV_TAB_ROW_INSET_LEFT = 4 * UNIT;
 /** Fixed strip under the app header for primary horizontal nav tabs */
 export const MAIN_NAV_TAB_BAR_HEIGHT = Math.round(5 * UNIT);
 
-/** Breathing room between the tab bar and page content */
-export const MAIN_NAV_TAB_BAR_MARGIN_BOTTOM = 2 * UNIT;
+/** No extra gap between the fixed tab bar and the scrollable content area. */
+export const MAIN_NAV_TAB_BAR_MARGIN_BOTTOM = 0;
 
-/** Total vertical space reserved below the app header when tabs are shown */
-export const MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT =
-  MAIN_NAV_TAB_BAR_HEIGHT + MAIN_NAV_TAB_BAR_MARGIN_BOTTOM;
+/**
+ * Vertical offset for the content container — 40px tab row plus the 1px border.
+ */
+export const MAIN_NAV_TAB_BAR_LAYOUT_HEIGHT = MAIN_NAV_TAB_BAR_HEIGHT + 1;
 
 export const ContainerStyle = styled.div<{
   $withMainNavTabs?: boolean;
@@ -45,36 +46,23 @@ export const ContainerStyle = styled.div<{
 `;
 
 export const MainNavTabBarStyle = styled.nav`
-  align-items: stretch;
-  background-color: ${props => (props.theme.background || dark.background).panel};
+  background-color: #FFFFFF;
   border-bottom: 1px solid ${props => (props.theme.borders || dark.borders).medium};
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  left: 0;
-  margin-bottom: ${MAIN_NAV_TAB_BAR_MARGIN_BOTTOM}px;
-  min-height: ${MAIN_NAV_TAB_BAR_HEIGHT}px;
   overflow-x: auto;
-  padding: 0 ${UNIT}px 0 ${MAIN_NAV_TAB_ROW_INSET_LEFT}px;
-  position: fixed;
-  top: ${HEADER_HEIGHT}px;
+  padding: ${UNIT}px ${2 * UNIT}px 0;
   width: 100%;
-  z-index: 9;
   ${ScrollbarStyledCss}
 `;
 
 export const MainNavTabListStyle = styled.div`
-  align-items: center;
+  align-items: flex-end;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  gap: ${UNIT * 1.5}px;
-  min-height: ${MAIN_NAV_TAB_BAR_HEIGHT - 2}px;
-
-  /* First tab label aligns with first breadcrumb (no extra link padding on the left) */
-  & > a:first-of-type {
-    padding-left: 0;
-  }
+  gap: ${UNIT / 2}px;
 `;
 
 export const MainNavTabLinkStyle = styled.a<{
@@ -84,11 +72,14 @@ export const MainNavTabLinkStyle = styled.a<{
   align-items: center;
   border-bottom: 2px solid transparent;
   box-sizing: border-box;
-  color: inherit;
+  color: #a9a9ab;
   cursor: pointer;
   display: inline-flex;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
   margin-bottom: -1px;
-  padding: ${2 * UNIT}px ${0.75 * UNIT}px;
+  padding: ${2 * UNIT}px ${UNIT}px;
   text-decoration: none;
   white-space: nowrap;
   ${transition()}
@@ -99,15 +90,9 @@ export const MainNavTabLinkStyle = styled.a<{
     pointer-events: none;
   `}
 
-  ${props => !props.$active && !props.$disabled && `
-    &:hover {
-      background-color: ${(props.theme.interactive || dark.interactive).hoverBackground};
-    }
-  `}
-
   ${props => props.$active && `
-    border-bottom-color: ${(props.theme.monotone || dark.monotone).black};
-    font-weight: 600;
+    border-bottom-color: #18181B;
+    color: #18181B;
   `}
 `;
 
@@ -263,7 +248,7 @@ export const NavigationItemStyle = styled.div<{
   `}
 
   ${props => props.selected && !props.withGradient && `
-    background-color: ${(props.theme.interactive || dark.interactive).linkPrimary};
+    background-color: #F3F4F6;
   `}
 
   ${props => props.selected && props.withGradient && `
@@ -280,17 +265,27 @@ export const NavigationLinkStyle = styled.a<{
 }>`
   ${transition()}
 
+  border-radius: 6px;
+  color: #3F3F46;
   display: block;
-  padding: ${UNIT * 1}px ${UNIT * PADDING_UNITS}px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0 ${UNIT}px;
+  padding: ${UNIT}px;
 
-  ${props => !props.selected && `
-    &:hover {
-      background-color: ${(props.theme.interactive || dark.interactive).hoverBackground};
-    }
-  `}
+  p {
+    font-weight: inherit;
+  }
+
+  &:hover {
+    background-color: #F3F4F6;
+    color: #3F3F46;
+  }
 
   ${props => props.selected && `
-    background-color: ${(props.theme.interactive || dark.interactive).linkPrimaryHover};
+    background-color: #F3F4F6;
+    font-weight: 500;
   `}
 `;
 

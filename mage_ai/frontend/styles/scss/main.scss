@@ -125,10 +125,10 @@ body {
   border-color: var(--borders-color-base-default);
   color: var(--fonts-color-text-base, #18181B);
   font-family: var(--font-apercu);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 400;
 
-  line-height: 1.44;
+  line-height: 20px;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -525,16 +525,6 @@ input,
 select,
 textarea {
   color: #18181B;
-}
-
-::-moz-selection {
-  background: red;
-  text-shadow: none;
-}
-
-::selection {
-  background: blue;
-  text-shadow: none;
 }
 
 img {

@@ -15,7 +15,10 @@ import FlexContainer from '@oracle/components/FlexContainer';
 import Spacing from '@oracle/elements/Spacing';
 import Spinner from '@oracle/components/Spinner';
 import dark from '@oracle/styles/themes/dark';
-import { BLUE_GRADIENT, PURPLE_PINK_GRADIENT } from '@oracle/styles/colors/main';
+import {
+  BRAND_ACCENT,
+  WHITE,
+} from '@oracle/styles/colors/main';
 import {
   BORDER_RADIUS,
   BORDER_STYLE,
@@ -40,6 +43,48 @@ export type ButtonHighlightProps = {
   highlightOnHover?: boolean;
   highlightOnHoverAlt?: boolean;
 };
+
+export function buttonHasSolidBackground(props: Pick<
+  ButtonProps,
+  | 'backgroundColor'
+  | 'backgroundGradient'
+  | 'borderLess'
+  | 'danger'
+  | 'default'
+  | 'noBackground'
+  | 'outline'
+  | 'primary'
+  | 'primaryGradient'
+  | 'secondary'
+  | 'secondaryGradient'
+  | 'success'
+  | 'transparent'
+  | 'warning'
+> & {
+  background?: string;
+}): boolean {
+  const {
+    background,
+    backgroundColor,
+    backgroundGradient,
+    danger,
+    primary,
+    primaryGradient,
+    secondaryGradient,
+    success,
+  } = props;
+
+  return !!(
+    danger
+    || success
+    || primary
+    || primaryGradient
+    || secondaryGradient
+    || backgroundGradient
+    || backgroundColor
+    || background
+  );
+}
 
 export type ButtonProps = {
   afterIcon?: any;
@@ -169,10 +214,6 @@ const SHARED_STYLES = css<{
     pointer-events: all;
   `}
 
-  ${props => props.backgroundGradient && `
-    background: ${props.backgroundGradient};
-  `}
-
   ${props => props.noBackground && `
     background-color: transparent;
   `}
@@ -231,15 +272,20 @@ const SHARED_STYLES = css<{
 
   ${props => props.backgroundColor && `
     background-color: ${props.backgroundColor};
+    border-color: ${props.backgroundColor};
+    color: ${WHITE};
   `}
 
   ${props => props.danger && `
     background-color: ${(props.theme.accent || dark.accent).negative};
+    border-color: ${(props.theme.accent || dark.accent).negative};
+    color: ${WHITE};
   `}
 
   ${props => props.success && `
-    background-color: ${(props.theme.background || dark.background).success};
-    color: ${(props.theme.content || dark.content).inverted};
+    background-color: ${(props.theme.accent || dark.accent).positive};
+    border-color: ${(props.theme.accent || dark.accent).positive};
+    color: ${WHITE};
   `}
 
   ${props => props.warning && `
@@ -324,11 +370,21 @@ const SHARED_STYLES = css<{
   `}
 
   ${props => props.secondaryGradient && `
-    background: ${PURPLE_PINK_GRADIENT};
+    background-color: ${BRAND_ACCENT};
+    border-color: ${BRAND_ACCENT};
+    color: ${WHITE};
   `}
 
   ${props => props.primaryGradient && `
-    background: ${BLUE_GRADIENT};
+    background-color: ${BRAND_ACCENT};
+    border-color: ${BRAND_ACCENT};
+    color: ${WHITE};
+  `}
+
+  ${props => props.backgroundGradient && `
+    background: ${BRAND_ACCENT} !important;
+    border-color: ${BRAND_ACCENT};
+    color: ${WHITE};
   `}
 
   ${props => props.disabled && `
@@ -387,13 +443,21 @@ const Button = ({
   loading,
   onClick,
   secondary,
+  success,
   ...props
 }: ButtonProps, ref) => {
   const router = useRouter();
   const query = router?.query;
+  const hasSolidBackground = buttonHasSolidBackground({
+    danger,
+    secondary,
+    success,
+    ...props,
+  });
   const iconProps = {
     disabled,
     size: UNIT * 1.5,
+    ...(hasSolidBackground ? { fill: WHITE, stroke: WHITE } : {}),
   };
 
   const {
@@ -424,6 +488,7 @@ const Button = ({
       compact={compact}
       danger={danger}
       disabled={disabled}
+      success={success}
       hasOnClick={!!onClick || !!asHref || !!linkHref}
       iconOnly={iconOnly}
       id={id}
@@ -458,7 +523,7 @@ const Button = ({
             </Flex>
           </Spacing>
         )}
-        {loading && <Spinner inverted={danger || secondary} size={compact ? 20 : 24} />}
+        {loading && <Spinner inverted={hasSolidBackground && !secondary} size={compact ? 20 : 24} />}
         {!loading && (
           <Flex>
             {!iconOnly && children}

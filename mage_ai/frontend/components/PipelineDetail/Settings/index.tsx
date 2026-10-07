@@ -20,6 +20,7 @@ import TagsAutocompleteInputField from '@components/Tags/TagsAutocompleteInputFi
 import Text from '@oracle/elements/Text';
 import TextInput from '@oracle/elements/Inputs/TextInput';
 import api from '@api';
+import { BRAND_ACCENT } from '@oracle/styles/colors/main';
 import usePrevious from '@utils/usePrevious';
 import useProject from '@utils/models/project/useProject';
 import { EXECUTOR_TYPES } from '@interfaces/ExecutorType';
@@ -355,6 +356,7 @@ function PipelineSettings({
 
         <Text muted>
           For more information on this setting, please read the <Link
+            color={BRAND_ACCENT}
             href="https://docs.mage.ai/production/configuring-production-settings/compute-resource#2-set-executor-type-and-customize-the-compute-resource-of-the-mage-executor"
             openNewWindow
           >
@@ -430,6 +432,7 @@ function PipelineSettings({
 
         <Text muted>
           For more information on this setting, please read the <Link
+            color={BRAND_ACCENT}
             href="https://docs.mage.ai/orchestration/pipeline-runs/retrying-block-runs"
             openNewWindow
           >

@@ -1,10 +1,11 @@
 import { CalendarRounded, NavDashboard, Smiley, WeekDots } from '@oracle/icons';
 import { TabType } from '@oracle/components/Tabs/ButtonTabs';
+import { BRAND_ACCENT } from '@oracle/styles/colors/main';
 import { TIME_PERIOD_DISPLAY_MAPPING, TimePeriodEnum } from '@utils/date';
 import { capitalize } from '@utils/string';
 
 /** Solid accent for primary actions (e.g. New pipeline, active pagination). */
-export const DASHBOARD_BRAND_ACCENT = '#5951ff';
+export const DASHBOARD_BRAND_ACCENT = BRAND_ACCENT;
 
 export const TAB_TODAY = {
   Icon: Smiley,

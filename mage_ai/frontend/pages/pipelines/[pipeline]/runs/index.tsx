@@ -523,6 +523,7 @@ function PipelineRuns({
                   >
                     <Button
                       afterIcon={<ArrowDown />}
+                      noBackground
                       onClick={(() => setShowActionsMenu(prev => !prev))}
                       outline
                       padding="6px 12px"

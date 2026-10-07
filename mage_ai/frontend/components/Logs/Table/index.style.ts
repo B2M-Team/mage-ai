@@ -46,6 +46,7 @@ export const TableRowStyle = styled.div<{
   `}
 
   ${props => props.selected && `
-    background-color: ${(props.theme.interactive || dark.interactive).activeBorder};
+    background-color: ${(props.theme.interactive || dark.interactive).rowSelectedBackground
+      || (props.theme.interactive || dark.interactive).activeOverlay};
   `}
 `;

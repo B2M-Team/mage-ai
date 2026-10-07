@@ -74,6 +74,7 @@ function Widget({
 
   return (
     <RowDataTable
+      noBoxShadow
       footer={
         <FlexContainer alignItems="center" justifyContent="center">
           <NextLink

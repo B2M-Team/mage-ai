@@ -3,7 +3,6 @@ import NextLink from 'next/link';
 import FlexContainer from '@oracle/components/FlexContainer';
 import Link from '@oracle/elements/Link';
 import Spacing from '@oracle/elements/Spacing';
-import Text from '@oracle/elements/Text';
 import { ItemStyle, SectionTitleStyle } from './index.style';
 import { PADDING_VERTICAL_UNITS, UNIT } from '@oracle/styles/units/spacing';
 
@@ -44,9 +43,7 @@ function VerticalSectionLinks({
       }) => (
         <Spacing key={uuid}>
           <SectionTitleStyle>
-            <Text bold muted small uppercase>
-              {title ? title() : uuid}
-            </Text>
+            {title ? title() : uuid}
           </SectionTitleStyle>
 
           {items?.map((item) => {
@@ -70,7 +67,7 @@ function VerticalSectionLinks({
                 <FlexContainer alignItems="center">
                   {IconItem && (
                     <>
-                      <IconItem default={!selected} size={1.75 * UNIT} />
+                      <IconItem fill="#3F3F46" size={20} />
 
                       <Spacing mr={1} />
                     </>
@@ -90,10 +87,9 @@ function VerticalSectionLinks({
                 >
                   <Link
                     block
-                    default={!selected}
+                    color="#3F3F46"
                     noHoverUnderline
                     noOutline
-                    sameColorAsText={selected}
                   >
                     {el}
                   </Link>
@@ -104,12 +100,12 @@ function VerticalSectionLinks({
             return (
               <Link
                 block
+                color="#3F3F46"
                 key={uuidItem}
                 noHoverUnderline
                 noOutline
                 onClick={onClick}
                 preventDefault
-                sameColorAsText
               >
                 {el}
               </Link>

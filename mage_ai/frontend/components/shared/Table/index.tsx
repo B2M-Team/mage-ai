@@ -603,11 +603,10 @@ function Table({
         } = col || {};
         const isSortable = sortableColumnIndexes?.includes(idx);
         const textProps = {
-          bold: true,
           cyan: sortedColumnIndex === idx,
           leftAligned: true,
-          monospace: true,
           muted: true,
+          weightStyle: 4 as const,
         };
 
         const headerDisplayText = label

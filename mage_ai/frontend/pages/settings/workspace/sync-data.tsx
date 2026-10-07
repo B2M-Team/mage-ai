@@ -29,6 +29,7 @@ import Text from '@oracle/elements/Text';
 import TextInput from '@oracle/elements/Inputs/TextInput';
 import VariableRow from '@components/Sidekick/GlobalVariables/VariableRow';
 import api from '@api';
+import { BRAND_ACCENT } from '@oracle/styles/colors/main';
 import {
   PADDING_UNITS,
   UNITS_BETWEEN_ITEMS_IN_SECTIONS,
@@ -235,6 +236,7 @@ function SyncData() {
                 <Spacing mb={1}>
                   <Text small>
                     Run <Link
+                      color={BRAND_ACCENT}
                       onClick={() => {
                         navigator.clipboard.writeText('cat ~/.ssh/id_ed25519.pub | base64 | tr -d \\\\n && echo');
                         toast.success(
@@ -257,6 +259,7 @@ function SyncData() {
                 <Spacing mb={1}>
                   <Text small>
                     Follow same steps as the public key, but run <Link
+                      color={BRAND_ACCENT}
                       onClick={() => {
                         navigator.clipboard.writeText('cat ~/.ssh/id_ed25519 | base64 | tr -d \\\\n && echo');
                         toast.success(
@@ -357,6 +360,7 @@ function SyncData() {
         </Text>
         <Link
           bold
+          color={BRAND_ACCENT}
           href="https://docs.mage.ai/production/data-sync/git-sync"
           openNewWindow>
           here
@@ -472,7 +476,7 @@ function SyncData() {
             as="/version-control"
             href="/version-control"
           >
-            <Link bold inline>version control app</Link>
+            <Link bold color={BRAND_ACCENT} inline>version control app</Link>
           </NextLink> unless you have a specific need to use the Git Actions modal.
         </Text>
       </Spacing>
@@ -528,7 +532,7 @@ function SyncData() {
         <Spacing mt={UNITS_BETWEEN_ITEMS_IN_SECTIONS}>
           {authType === AuthType.SSH && (
             <Text bold>
-              You will need to <Link href="https://docs.mage.ai/development/git/configure#generate-ssh-token" openNewWindow>
+              You will need to <Link color={BRAND_ACCENT} href="https://docs.mage.ai/development/git/configure#generate-ssh-token" openNewWindow>
                 set up your SSH key
               </Link> if you have not done so already.
             </Text>
