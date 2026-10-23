@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
 import { toast } from 'react-toastify';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 import { useRouter } from 'next/router';
 
@@ -20,7 +20,6 @@ import TripleLayout from '@components/TripleLayout';
 import api from '@api';
 import useConfirmLeave from '@utils/hooks/useConfirmLeave';
 import usePrevious from '@utils/usePrevious';
-import { HEADER_HEIGHT } from '@components/shared/Header/index.style';
 import {
   NAV_TABS,
   NAV_TAB_DEFINE,
@@ -28,12 +27,13 @@ import {
   NAV_TAB_DOCUMENT,
   NAV_TAB_TRIGGERS,
 } from './constants';
+import { ASIDE_HEADER_HEIGHT } from '@components/TripleLayout/index.style';
+import { ContainerStyle } from './index.style';
 import { PADDING_UNITS } from '@oracle/styles/units/spacing';
 import {
   ButtonsStyle,
   TabsStyle,
 } from '@components/CustomTemplates/TemplateDetail/index.style';
-import { VERTICAL_NAVIGATION_WIDTH } from '@components/Dashboard/index.style';
 import { onSuccess } from '@api/utils/response';
 import { useError } from '@context/Error';
 import { useWindowSize } from '@utils/sizes';
@@ -63,7 +63,29 @@ function PipelineTemplateDetail({
   const {
     height: heightWindow,
   } = useWindowSize();
-  const heightOffset = HEADER_HEIGHT;
+
+  // The layout fills the space between the dashboard tab bar (above this component in the
+  // page flow) and the bottom of the window. The tab bar renders client-side after this
+  // component mounts, so measure again when the parent's children change.
+  const refContainer = useRef(null);
+  const [containerTop, setContainerTop] = useState<number>(0);
+  useEffect(() => {
+    const element = refContainer?.current;
+    if (!element) {
+      return;
+    }
+
+    const measure = () => setContainerTop(element.getBoundingClientRect()?.top || 0);
+    measure();
+
+    const observer = new MutationObserver(measure);
+    if (element.parentElement) {
+      observer.observe(element.parentElement, { childList: true });
+    }
+
+    return () => observer.disconnect();
+  }, [heightWindow]);
+  const height = Math.max((heightWindow || 0) - containerTop, 0);
 
   const router = useRouter();
   const [showError] = useError(null, {}, [], {
@@ -375,24 +397,32 @@ function PipelineTemplateDetail({
   });
 
   return (
-    // @ts-ignore
-    <TripleLayout
-      before={before}
-      beforeHidden={beforeHidden}
-      beforeWidth={beforeWidth}
-      leftOffset={VERTICAL_NAVIGATION_WIDTH}
-      setBeforeHidden={setBeforeHidden}
-      setBeforeWidth={setBeforeWidth}
-    >
-      <ConfirmLeaveModal />
-      <DependencyGraph
-        blocks={blocks}
-        height={heightWindow}
-        heightOffset={HEADER_HEIGHT}
-        noStatus
-        pipeline={pipeline as PipelineType}
-      />
-    </TripleLayout>
+    <ContainerStyle ref={refContainer}>
+      {/* @ts-ignore */}
+      <TripleLayout
+        before={before}
+        // Inline layout positions everything relative to the container. These offsets cancel
+        // the space TripleLayout reserves for the old page header above the sidebar header.
+        beforeDraggableTopOffset={ASIDE_HEADER_HEIGHT}
+        beforeHeightOffset={ASIDE_HEADER_HEIGHT}
+        beforeHidden={beforeHidden}
+        beforeWidth={beforeWidth}
+        headerOffset={-ASIDE_HEADER_HEIGHT}
+        height={height}
+        inline
+        setBeforeHidden={setBeforeHidden}
+        setBeforeWidth={setBeforeWidth}
+      >
+        <ConfirmLeaveModal />
+        <DependencyGraph
+          blocks={blocks}
+          height={height}
+          heightOffset={0}
+          noStatus
+          pipeline={pipeline as PipelineType}
+        />
+      </TripleLayout>
+    </ContainerStyle>
   );
 }
 
