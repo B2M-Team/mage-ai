@@ -193,7 +193,6 @@ function PermissionDetail({
             toast.success(
               permission ? 'Permission successfully updated.' : 'New permission created successfully.',
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: `permission-mutate-success-${objectServer.id}`,
               },
             );
@@ -209,7 +208,6 @@ function PermissionDetail({
             toast.error(
               errors?.error || exception || message,
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: type,
               },
             );
@@ -229,7 +227,6 @@ function PermissionDetail({
             toast.success(
               'Permission successfully delete.',
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: `permission-delete-success-${permission?.id}`,
               },
             );
@@ -245,7 +242,6 @@ function PermissionDetail({
             toast.error(
               errors?.error || exception || message,
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: type,
               },
             );

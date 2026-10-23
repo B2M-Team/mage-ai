@@ -49,7 +49,6 @@ function SecretDetail({
         onSuccess(response, {
           callback: (res) => {
             toast.success('Secret created successfully', {
-              position: toast.POSITION.BOTTOM_RIGHT,
               toastId: 'secret_created',
             });
             onSaveSuccess?.(res?.secret);

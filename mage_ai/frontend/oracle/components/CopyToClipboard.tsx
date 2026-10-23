@@ -98,7 +98,6 @@ function CopyToClipboard({
         onCopy={() => toast.success(
           buildMessage(),
           {
-            position: toast.POSITION.BOTTOM_RIGHT,
             toastId: copiedText,
           },
         )}

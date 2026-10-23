@@ -48,7 +48,6 @@ function Secrets({ fetchSecrets, pipelineUUID, secrets, setErrorMessages, width 
         callback: () => {
           fetchSecrets();
           toast.success('Secret created successfully', {
-            position: toast.POSITION.BOTTOM_RIGHT,
             toastId: 'secret_created',
           });
         },
@@ -74,7 +73,6 @@ function Secrets({ fetchSecrets, pipelineUUID, secrets, setErrorMessages, width 
         callback: () => {
           fetchSecrets();
           toast.success('Secret deleted successfully', {
-            position: toast.POSITION.BOTTOM_RIGHT,
             toastId: 'secret_deleted',
           });
         },
@@ -173,13 +171,11 @@ function Secrets({ fetchSecrets, pipelineUUID, secrets, setErrorMessages, width 
                       navigator.clipboard.writeText(`{{ mage_secret_var(${newSecretName}) }}`)
                         .then(() => {
                           toast.success('Successfully copied to clipboard.', {
-                            position: toast.POSITION.BOTTOM_RIGHT,
                             toastId: newSecretName,
                           });
                         })
                         .catch(() => {
                           toast.error('Failed to copy to clipboard.', {
-                            position: toast.POSITION.BOTTOM_RIGHT,
                             toastId: 'copy_error',
                           });
                         });

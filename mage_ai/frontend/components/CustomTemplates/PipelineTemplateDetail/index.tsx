@@ -183,7 +183,6 @@ function PipelineTemplateDetail({
               toast.success(
                 'Template successfully saved.',
                 {
-                  position: toast.POSITION.BOTTOM_RIGHT,
                   toastId: 'custom_pipeline_template',
                 },
               );

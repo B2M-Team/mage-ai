@@ -119,7 +119,6 @@ function SyncData() {
               toast.success(
                 'Sync saved',
                 {
-                  position: toast.POSITION.BOTTOM_RIGHT,
                   toastId: 'data_sync_success',
                 },
               );
@@ -144,7 +143,6 @@ function SyncData() {
               toast.success(
                 'Success!',
                 {
-                  position: toast.POSITION.BOTTOM_RIGHT,
                   toastId: 'data_sync_success',
                 },
               );
@@ -242,7 +240,6 @@ function SyncData() {
                         toast.success(
                           'Successfully copied to clipboard.',
                           {
-                            position: toast.POSITION.BOTTOM_RIGHT,
                             toastId: uuid,
                           },
                         );
@@ -265,7 +262,6 @@ function SyncData() {
                         toast.success(
                           'Successfully copied to clipboard.',
                           {
-                            position: toast.POSITION.BOTTOM_RIGHT,
                             toastId: uuid,
                           },
                         );

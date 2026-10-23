@@ -527,7 +527,6 @@ function Edit({
         toast.error(
           'Please enter a valid SLA',
           {
-            position: toast.POSITION.BOTTOM_RIGHT,
             toastId: 'sla_error',
           },
         );
