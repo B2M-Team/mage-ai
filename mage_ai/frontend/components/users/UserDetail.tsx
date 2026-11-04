@@ -172,7 +172,6 @@ function UserDetail({
             toast.success(
               user ? 'User profile successfully updated.' : 'New user created successfully.',
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: `user-update-success-${objectServer.id}`,
               },
             );
@@ -188,7 +187,6 @@ function UserDetail({
             toast.error(
               errors?.error || exception || message,
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: type,
               },
             );
@@ -208,7 +206,6 @@ function UserDetail({
             toast.success(
               'User successfully delete.',
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: `user-delete-success-${user?.id}`,
               },
             );
@@ -224,7 +221,6 @@ function UserDetail({
             toast.error(
               errors?.error || exception || message,
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: type,
               },
             );

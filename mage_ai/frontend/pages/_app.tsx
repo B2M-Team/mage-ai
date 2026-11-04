@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import App, { AppProps } from 'next/app';
 import Cookies from 'js-cookie';
-import LoadingBar from 'react-top-loading-bar';
 import dynamic from 'next/dynamic';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { GridThemeProvider } from 'styled-bootstrap-grid';
@@ -27,7 +26,6 @@ import { DEMO_GA_MEASUREMENT_ID } from '@utils/gtag';
 import { ErrorProvider } from '@context/Error';
 import { LOCAL_STORAGE_KEY_HIDE_PUBLIC_DEMO_WARNING } from '@storage/constants';
 import { ModalProvider } from '@context/Modal';
-import { RED } from '@oracle/styles/colors/main';
 import {
   REQUIRE_USER_AUTHENTICATION,
   REQUIRE_USER_AUTHENTICATION_COOKIE_KEY,
@@ -69,7 +67,6 @@ type MyAppProps = {
 
 function MyApp(props: MyAppProps & AppProps) {
   const commandCenterRootRef = useRef(null);
-  const refLoadingBar = useRef(null);
   const keyMapping = useRef({});
   const keyHistory = useRef([]);
 
@@ -112,7 +109,6 @@ function MyApp(props: MyAppProps & AppProps) {
 
   useEffect(() => {
     const handleRouteChangeComplete = (url: URL) => {
-      refLoadingBar?.current?.complete?.();
       savePageHistory();
     };
 
@@ -121,7 +117,6 @@ function MyApp(props: MyAppProps & AppProps) {
       keyHistory.current = {};
       // @ts-ignore
       keyMapping.current = {};
-      refLoadingBar?.current?.continuousStart?.();
     };
 
     router.events.on('routeChangeStart', handleRouteChangeStart);
@@ -313,8 +308,6 @@ function MyApp(props: MyAppProps & AppProps) {
                       name="viewport"
                     />
                   </Head>
-
-                  <LoadingBar color={RED} ref={refLoadingBar} />
 
                   {/* @ts-ignore */}
                   <Component {...pageProps} />

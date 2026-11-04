@@ -62,7 +62,6 @@ function RolesListPage() {
             toast.success(
               'Started creating default roles and permissions. Check back later to see the roles.',
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: 'seed-create-success',
               },
             );
@@ -78,7 +77,6 @@ function RolesListPage() {
             toast.error(
               errors?.error || exception || message,
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: type,
               },
             );

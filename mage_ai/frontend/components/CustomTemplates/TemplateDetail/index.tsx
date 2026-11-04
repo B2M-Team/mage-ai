@@ -199,7 +199,6 @@ function TemplateDetail({
             toast.success(
               'Template successfully saved.',
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: 'custom_block_template',
               },
             );

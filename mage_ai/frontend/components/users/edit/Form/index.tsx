@@ -108,7 +108,6 @@ function UserEditForm({
             toast.success(
               newUser ? 'New user created successfully.' : 'User profile successfully updated.',
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: `user-update-success-${userServer.id}`,
               },
             );
@@ -125,7 +124,6 @@ function UserEditForm({
             toast.error(
               errors?.error || exception || message,
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: type,
               },
             );

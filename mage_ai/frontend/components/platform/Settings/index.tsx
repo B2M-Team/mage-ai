@@ -98,7 +98,6 @@ function Settings() {
             toast.success(
               'Platform settings successfully saved.',
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: `platform-settings-success-${objectServer?.name}`,
               },
             );

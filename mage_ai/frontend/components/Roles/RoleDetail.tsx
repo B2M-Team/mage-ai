@@ -149,7 +149,6 @@ function RoleDetail({
             toast.success(
               role ? 'Role successfully updated.' : 'New role created successfully.',
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: `role-mutate-success-${objectServer.id}`,
               },
             );
@@ -165,7 +164,6 @@ function RoleDetail({
             toast.error(
               errors?.error || exception || message,
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: type,
               },
             );
@@ -185,7 +183,6 @@ function RoleDetail({
             toast.success(
               'Role successfully delete.',
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: `role-delete-success-${role?.id}`,
               },
             );
@@ -201,7 +198,6 @@ function RoleDetail({
             toast.error(
               errors?.error || exception || message,
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: type,
               },
             );

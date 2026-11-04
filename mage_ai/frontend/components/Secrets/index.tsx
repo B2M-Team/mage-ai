@@ -43,9 +43,7 @@ function Secrets({
         onSuccess(response, {
           callback: () => {
             fetchSecrets();
-            toast.success('Secret successfully deleted', {
-              position: toast.POSITION.BOTTOM_RIGHT,
-            });
+            toast.success('Secret successfully deleted');
           },
           onErrorCallback: (response, errors) => showError({
             errors,
@@ -120,13 +118,11 @@ function Secrets({
                   navigator.clipboard.writeText(secret.name)
                     .then(() => {
                         toast.success('Successfully copied to clipboard.', {
-                            position: toast.POSITION.BOTTOM_RIGHT,
                             toastId: secret.name,
                         });
                     })
                     .catch(() => {
                         toast.error('Failed to copy to clipboard.', {
-                            position: toast.POSITION.BOTTOM_RIGHT,
                             toastId: 'copy_error',
                         });
                     });

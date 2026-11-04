@@ -195,7 +195,6 @@ function GlobalVariables({
                   toast.success(
                     'Successfully copied to clipboard.',
                     {
-                      position: toast.POSITION.BOTTOM_RIGHT,
                       toastId: newVariableName,
                     },
                   );

@@ -117,7 +117,6 @@ function GlobalHookDetail({
       toast.error(
         errors?.error || exception || message,
         {
-          position: toast.POSITION.BOTTOM_RIGHT,
           toastId: type,
         },
       );
@@ -163,7 +162,6 @@ function GlobalHookDetail({
             toast.success(
               'Global hook changes successfully saved.',
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: `global-hooks-success-${objectServer.uuid}`,
               },
             );
@@ -208,7 +206,6 @@ function GlobalHookDetail({
             toast.success(
               'Snapshot successfully created.',
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: `global-hooks-snapshot-success-${objectServer.uuid}`,
               },
             );
@@ -230,7 +227,6 @@ function GlobalHookDetail({
             toast.success(
               'Global hook changes successfully saved.',
               {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: `global-hooks-success-${objectServer.uuid}`,
               },
             );

@@ -141,13 +141,11 @@ function VariableRow({
                 navigator.clipboard.writeText(copyText)
                   .then(() => {
                     toast.success('Successfully copied to clipboard.', {
-                      position: toast.POSITION.BOTTOM_RIGHT,
                       toastId: uuid,
                     });
                   })
                   .catch(() => {
                     toast.error('Failed to copy to clipboard.', {
-                      position: toast.POSITION.BOTTOM_RIGHT,
                       toastId: 'copy_error',
                     });
                   });

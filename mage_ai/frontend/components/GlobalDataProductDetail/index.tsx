@@ -80,7 +80,6 @@ function GlobalDataProductDetail({ globalDataProduct, isNew }: GlobalDataProduct
               setObjectAttributesState(gdp);
 
               toast.success('Global data product successfully saved.', {
-                position: toast.POSITION.BOTTOM_RIGHT,
                 toastId: 'custom_pipeline_template',
               });
             }
